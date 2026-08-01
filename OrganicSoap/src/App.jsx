@@ -5,13 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-green-100">
-      <h1 className="text-4xl font-bold text-green-700">
-        Tailwind CSS is Working! 
-      </h1>
-    </div>
-  );
+  return <h1>Organic Store</h1>;
 }
 
 export default App;
