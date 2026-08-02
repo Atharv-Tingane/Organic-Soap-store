@@ -3,15 +3,15 @@ import TestimonialCard from "./TestimonialCard";
 const testimonials = [
   {
     id: 1,
-    name: "Priya Sharma",
+    name: "Vinay Gunte",
     image: "https://i.pravatar.cc/150?img=1",
-    rating: 5,
+    rating: 3,
     review:
       "Absolutely loved the turmeric soap. My skin feels fresh and healthy after every use.",
   },
   {
     id: 2,
-    name: "Rahul Verma",
+    name: "Saksham Harne",
     image: "https://i.pravatar.cc/150?img=3",
     rating: 5,
     review:
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Ananya Patel",
+    name: "Raviraj",
     image: "https://i.pravatar.cc/150?img=5",
     rating: 5,
     review:
