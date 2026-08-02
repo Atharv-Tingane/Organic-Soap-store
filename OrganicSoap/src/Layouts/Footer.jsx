@@ -1,9 +1,9 @@
-const Footer = () => {
+function Footer() {
   return (
     <footer>
-      Footer
+      <h2>Footer</h2>
     </footer>
   );
-};
+}
 
 export default Footer;
