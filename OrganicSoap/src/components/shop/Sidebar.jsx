@@ -14,7 +14,7 @@ function Sidebar({ selectedCategory, setSelectedCategory })  {
 
   <div className="space-y-3">
 
-    <label className="flex cursor-pointer items-center gap-3">
+    <label className="flex  items-center gap-3">
       <input
         type="radio"
         name="category"
@@ -24,7 +24,7 @@ function Sidebar({ selectedCategory, setSelectedCategory })  {
       All Products
     </label>
 
-    <label className="flex cursor-pointer items-center gap-3">
+    <label className="flex items-center gap-3">
       <input
         type="radio"
         name="category"
@@ -34,7 +34,7 @@ function Sidebar({ selectedCategory, setSelectedCategory })  {
       Organic Soaps
     </label>
 
-    <label className="flex cursor-pointer items-center gap-3">
+    <label className="flex  items-center gap-3">
       <input
         type="radio"
         name="category"
@@ -44,7 +44,7 @@ function Sidebar({ selectedCategory, setSelectedCategory })  {
       Face Packs
     </label>
 
-    <label className="flex cursor-pointer items-center gap-3">
+    <label className="flex  items-center gap-3">
       <input
         type="radio"
         name="category"

@@ -4,7 +4,7 @@ import heroBanner from "../../assets/images/herobanner.png";
 function Hero() {
   return (
   //  <section className="w-full bg-linear-to-br from-white via-green-50 to-green-100">
-  <section className="w-full bg-[#f4fbf5]">
+  <section className="w-full bg-[#f4fbf5] -mt-[80px] pt-[96px]">
       {/* <div className="mx-auto flex min-h-[70vh] max-w-7xl flex-col-reverse items-center justify-between gap-14 px-6 py-16 lg:flex-row lg:px-8"> */}
       {/* <div className="mx-auto flex max-w-7xl flex-col-reverse items-center justify-between gap-14 px-6 py-20 lg:flex-row lg:px-8"> */}
       <div className="mx-auto flex max-w-7xl flex-col-reverse items-center justify-between gap-14 px-6 py-20 lg:flex-row lg:px-8">

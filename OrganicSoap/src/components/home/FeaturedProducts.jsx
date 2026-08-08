@@ -6,7 +6,7 @@ import products from "../../data/products";
 function FeaturedProducts() {
   return (
     // <section className="bg-white py-20">
-    <section className="bg-[#f4fbf5]">
+    <section className="bg-[#f4fbf5] ">
       <div className="mx-auto max-w-7xl px-6">
         
      

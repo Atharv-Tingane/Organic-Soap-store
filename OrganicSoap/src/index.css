@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+body {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid rgb(2, 180, 2);
+  border-radius: 50%;
+  background: #fbfbfb77;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease;
+}
+
+.custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+}
