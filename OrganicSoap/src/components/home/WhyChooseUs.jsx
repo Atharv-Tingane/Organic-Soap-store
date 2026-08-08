@@ -6,6 +6,7 @@ import {
 } from "react-icons/fi";
 
 import FeatureCard from "./FeatureCard";
+import Reveal from "../common/Reveal";
 
 const features = [
   {
@@ -47,33 +48,36 @@ function WhyChooseUs() {
 
         <div className="mb-14 text-center">
 
-          <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
-            Why Choose Us
-          </p>
+  <Reveal>
+    <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
+      Why Choose Us
+    </p>
+  </Reveal>
 
-          <h2 className="mt-3 text-4xl font-bold text-gray-900">
-            Nature's Best for Your Skin
-          </h2>
+  <Reveal delay={120}>
+    <h2 className="mt-3 text-4xl font-bold text-gray-800 sm:text-5xl">
+      Nature's Best for Your Skin
+    </h2>
+  </Reveal>
 
-          <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-            We combine nature, quality, and sustainability to create products
-            that care for your skin and the environment.
-          </p>
+  <Reveal delay={240}>
+    <p className="mx-auto mt-4 max-w-2xl text-gray-500">
+      We combine nature, quality, and sustainability to create products
+      that care for your skin and the environment.
+    </p>
+  </Reveal>
 
-        </div>
+</div>
 
         {/* Features */}
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
-          {features.map((feature) => (
-            <FeatureCard
-              key={feature.id}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))}
+         {features.map((feature, index) => (
+  <Reveal key={feature.title} delay={index * 150}>
+    <FeatureCard {...feature} />
+  </Reveal>
+))}
 
         </div>
 

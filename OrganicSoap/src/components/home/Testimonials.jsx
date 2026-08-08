@@ -1,4 +1,6 @@
 import TestimonialCard from "./TestimonialCard";
+import Reveal from "../common/Reveal";
+
 
 const testimonials = [
   {
@@ -35,20 +37,26 @@ function Testimonials() {
 
         <div className="mb-14 text-center">
 
-          <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
-            Testimonials
-          </p>
+  <Reveal>
+    <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
+      Testimonials
+    </p>
+  </Reveal>
 
-          <h2 className="mt-3 text-5xl font-bold text-gray-900">
-            What Our Customers Say
-          </h2>
+  <Reveal delay={120}>
+    <h2 className="mt-3 text-4xl font-bold text-gray-800 sm:text-5xl">
+      Loved by Our Customers
+    </h2>
+  </Reveal>
 
-          <p className="mx-auto mt-5 max-w-2xl text-gray-500">
-            Thousands of happy customers trust our handcrafted organic skincare
-            products every day.
-          </p>
+  <Reveal delay={240}>
+    <p className="mx-auto mt-4 max-w-2xl text-gray-500">
+      See what our customers have to say about their experience with
+      OrganicSoap.
+    </p>
+  </Reveal>
 
-        </div>
+</div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 

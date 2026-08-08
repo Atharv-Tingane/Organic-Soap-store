@@ -1,51 +1,71 @@
 import CategoryCard from "./CategoryCard";
+import Reveal from "../common/Reveal";
 
 import soap from "../../assets/images/soap.png";
 import facepack from "../../assets/images/facepack.png";
 import herbal from "../../assets/images/herbal.png";
-import gift from "../../assets/images/gift.png";
 
 function Categories() {
   return (
-    // <section className="py-12 px-6 bg-[#f4fbf5]">
-    // <section className="w-full bg-linear-to-br from-white via-green-50 to-green-100">
-    <section className="bg-[#f4fbf5]">
-    {/* //   <div className="max-w-7xl mx-auto">
-  //   <section className="bg-[#f4fbf5]"> */}
-   <div className="max-w-7xl mx-auto px-6 pt-12 pb-20">
+    <section className="bg-[#f8faf8] px-6 py-20">
+
+      <div className="mx-auto max-w-7xl">
 
         {/* Heading */}
 
-        <div className="text-center mb-14">
-          <p className="text-green-600 font-semibold uppercase tracking-widest">
-            Categories
-          </p>
+        <div className="mb-14 text-center">
 
-          <h2 className="text-4xl font-bold text-gray-800 mt-3">
-            Shop by Category
-          </h2>
+          <Reveal>
+            <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
+              Categories
+            </p>
+          </Reveal>
 
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Discover our handcrafted skincare collection made with natural
-            ingredients for glowing and healthy skin.
-          </p>
+          <Reveal delay={120}>
+            <h2 className="mt-3 text-4xl font-bold text-gray-800 sm:text-5xl">
+              Shop by Category
+            </h2>
+          </Reveal>
+
+          <Reveal delay={240}>
+            <p className="mx-auto mt-4 max-w-2xl text-gray-500">
+              Discover our handcrafted skincare collection made with natural
+              ingredients for glowing and healthy skin.
+            </p>
+          </Reveal>
+
         </div>
+
 
         {/* Cards */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
-          <CategoryCard image={soap} title="Organic Soaps" />
+          <Reveal delay={100}>
+            <CategoryCard
+              image={soap}
+              title="Organic Soaps"
+            />
+          </Reveal>
 
-          <CategoryCard image={facepack} title="Face Packs" />
+          <Reveal delay={250}>
+            <CategoryCard
+              image={facepack}
+              title="Face Packs"
+            />
+          </Reveal>
 
-          <CategoryCard image={herbal} title="Herbal Care" />
-
-          <CategoryCard image={gift} title="Gift Packs" />
+          <Reveal delay={400}>
+            <CategoryCard
+              image={herbal}
+              title="Herbal Care"
+            />
+          </Reveal>
 
         </div>
 
       </div>
+
     </section>
   );
 }

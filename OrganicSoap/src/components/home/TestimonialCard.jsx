@@ -1,4 +1,4 @@
-import { FiStar } from "react-icons/fi";
+import { FiStar } from "react-icons/fi";import Reveal from "../common/Reveal";
 
 function TestimonialCard({ image, name, review, rating }) {
   return (
