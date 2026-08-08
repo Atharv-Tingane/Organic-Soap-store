@@ -5,25 +5,20 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#f4fbf5]">
 
-      {/* Background Glow */}
 
       <div className="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-green-200/20 blur-3xl" />
 
       <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-emerald-200/20 blur-3xl" />
 
 
-      {/* Hero Container */}
-
       <div className="mx-auto flex min-h-[calc(100vh-100px)] max-w-7xl items-center px-6 py-20 lg:px-8">
 
         <div className="grid w-full items-center gap-14 lg:grid-cols-2 lg:gap-20">
 
 
-          {/* ================= LEFT CONTENT ================= */}
-
           <div className="relative z-10 text-center lg:text-left">
 
-            {/* Badge */}
+     
 
             <div className="animate-[fade-up_0.8s_ease-out_both] mb-7 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-5 py-2 text-sm font-semibold text-green-700 shadow-sm backdrop-blur-sm">
 
@@ -34,7 +29,6 @@ function Hero() {
             </div>
 
 
-            {/* Heading */}
 
             <h1 className="animate-[fade-up_0.8s_ease-out_both] text-5xl font-extrabold leading-[1.05] tracking-tight text-[#173b2c] [animation-delay:150ms] sm:text-6xl lg:text-7xl">
 
@@ -49,8 +43,6 @@ function Hero() {
             </h1>
 
 
-            {/* Description */}
-
             <p className="animate-[fade-up_0.8s_ease-out_both] mx-auto mt-7 max-w-xl text-base leading-8 text-gray-600 [animation-delay:300ms] sm:text-lg lg:mx-0">
 
               Handcrafted organic soaps made with carefully selected natural
@@ -60,7 +52,7 @@ function Hero() {
             </p>
 
 
-            {/* Buttons */}
+   
 
             <div className="animate-[fade-up_0.8s_ease-out_both] mt-9 flex flex-col items-center gap-4 [animation-delay:450ms] sm:flex-row sm:justify-center lg:justify-start">
 
@@ -86,7 +78,6 @@ function Hero() {
             </div>
 
 
-            {/* Features */}
 
             <div className="animate-[fade-up_0.8s_ease-out_both] mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-gray-500 [animation-delay:600ms] lg:justify-start">
 
@@ -127,16 +118,12 @@ function Hero() {
           </div>
 
 
-          {/* ================= RIGHT IMAGE ================= */}
 
           <div className="relative flex items-center justify-center">
 
-            {/* Image Glow */}
 
             <div className="absolute h-[75%] w-[75%] rounded-full bg-green-200/30 blur-3xl" />
 
-
-            {/* Hero Image */}
 
             <div className="animate-[fade-right_1s_ease-out_both] relative w-full max-w-2xl [animation-delay:200ms]">
 
@@ -151,7 +138,7 @@ function Hero() {
             </div>
 
 
-            {/* Nature Badge */}
+
 
             <div className="animate-[fade-up_0.8s_ease-out_both] absolute -bottom-5 -left-2 hidden rounded-2xl border border-white/60 bg-white/90 px-5 py-4 shadow-xl backdrop-blur-md [animation-delay:700ms] sm:block lg:-left-8">
 

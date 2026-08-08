@@ -10,11 +10,10 @@ function CategoryCard({ image, title }) {
           className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110"
         />
 
-        {/* Gradient overlay */}
 
         <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent opacity-70 transition duration-500 group-hover:opacity-85" />
 
-        {/* Content */}
+
 
         <div className="absolute inset-x-0 bottom-0 p-5">
 

@@ -13,7 +13,7 @@ function Navbar() {
    <header className="sticky top-0 z-50 px-4 pt-4">
       <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl bg-white/70 px-7 py-4 shadow-lg backdrop-blur-md">
 
-        {/* Logo */}
+ 
         <Link
           to="/"
           className="text-2xl font-extrabold text-green-700"
@@ -21,7 +21,7 @@ function Navbar() {
           OrganicSoap
         </Link>
 
-        {/* Navigation */}
+    
         <ul className="hidden items-center gap-8 md:flex">
           <li>
             <NavLink
@@ -60,15 +60,13 @@ function Navbar() {
           </li>
         </ul>
 
-        {/* Right Side */}
+      
         <div className="flex items-center gap-4">
 
-          {/* Search */}
           <button className="rounded-full p-2 transition hover:bg-green-100">
             <FiSearch size={20} />
           </button>
 
-          {/* Cart */}
           <Link
             to="/cart"
             className="relative rounded-full p-2 transition hover:bg-green-100"
@@ -82,7 +80,6 @@ function Navbar() {
             )}
           </Link>
 
-          {/* Login */}
           <Link
             to="/login"
             className="hidden rounded-xl bg-green-600 px-5 py-2 font-medium text-white transition hover:bg-green-700 md:block"
@@ -90,7 +87,6 @@ function Navbar() {
             Login
           </Link>
 
-          {/* Mobile Menu */}
           <button className="rounded-full p-2 transition hover:bg-green-100 md:hidden">
             <FiMenu size={24} />
           </button>

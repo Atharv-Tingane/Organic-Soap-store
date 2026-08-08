@@ -1,6 +1,6 @@
 import {
   FiTruck,
-  FiHeart,
+  FiHeart,  
   FiShield,
   FiAward,
 } from "react-icons/fi";
@@ -44,7 +44,6 @@ function WhyChooseUs() {
     <section className="bg-[#f8faf8] py-20">
       <div className="mx-auto max-w-7xl px-6">
 
-        {/* Heading */}
 
         <div className="mb-14 text-center">
 
@@ -69,7 +68,6 @@ function WhyChooseUs() {
 
 </div>
 
-        {/* Features */}
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
