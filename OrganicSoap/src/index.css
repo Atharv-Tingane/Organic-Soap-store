@@ -56,3 +56,38 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+
+* {
+  cursor: none;
+}
+.custom-cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #228b48;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    opacity 0.3s ease;
+}
+
+.custom-cursor.cursor-hover {
+  width: 35px;
+  height: 35px;
+}
+
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}

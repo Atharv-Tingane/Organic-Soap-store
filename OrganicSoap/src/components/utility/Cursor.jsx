@@ -1,48 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function Cursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+function Cursor() {
+  const cursorRef = useRef(null);
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+
     const moveCursor = (e) => {
-      setPosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    };
+
+    const handleMouseOver = (e) => {
+      if (e.target.closest("a, button")) {
+        setHovering(true);
+      }
+    };
+
+    const handleMouseOut = (e) => {
+      if (e.target.closest("a, button")) {
+        setHovering(false);
+      }
     };
 
     window.addEventListener("mousemove", moveCursor);
-
-    const interactiveElements = document.querySelectorAll(
-      "button, a"
-    );
-
-    const enter = () => setHovering(true);
-    const leave = () => setHovering(false);
-
-    interactiveElements.forEach((element) => {
-      element.addEventListener("mouseenter", enter);
-      element.addEventListener("mouseleave", leave);
-    });
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-
-      interactiveElements.forEach((element) => {
-        element.removeEventListener("mouseenter", enter);
-        element.removeEventListener("mouseleave", leave);
-      });
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
   return (
     <div
-      className={`custom-cursor ${hovering ? "hover" : ""}`}
-      style={{
-        left: position.x,
-        top: position.y,
-      }}
+      ref={cursorRef}
+      className={`custom-cursor ${
+        hovering ? "cursor-hover" : ""
+      }`}
     />
   );
 }
+
+export default Cursor;
