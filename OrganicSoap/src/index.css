@@ -82,12 +82,11 @@ body {
   width: 35px;
   height: 35px;
 }
-
 html {
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 body {
-  overscroll-behavior: none;
-  overflow-x: hidden;
+  margin: 0;
+  overscroll-behavior-y: none;
 }

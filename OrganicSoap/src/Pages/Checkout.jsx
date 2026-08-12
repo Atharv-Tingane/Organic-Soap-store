@@ -37,14 +37,27 @@ function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setOrderPlaced(true);
   };
 
+  // Original price before discount
+  const originalTotal = cart.reduce(
+    (total, item) =>
+      total +
+      (item.originalPrice ?? item.price) * item.quantity,
+    0
+  );
+
+  // Total savings
+  const totalDiscount = originalTotal - cartTotal;
+
+
+  // EMPTY CART
 
   if (cart.length === 0 && !orderPlaced) {
     return (
-      <section className="min-h-[calc(100vh-100px)] bg-[#f8fbf8] px-6 py-20">
+      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
+
         <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-20 text-center">
 
           <Reveal>
@@ -68,7 +81,7 @@ function Checkout() {
           <Reveal delay={350}>
             <Link
               to="/shop"
-              className="mt-8 flex items-center gap-2 rounded-full bg-green-600 px-7 py-3.5 font-semibold text-white transition hover:bg-green-700"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-green-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
             >
               <FiArrowLeft />
               Continue Shopping
@@ -76,65 +89,72 @@ function Checkout() {
           </Reveal>
 
         </div>
+
       </section>
     );
   }
 
+
+  // ORDER SUCCESS
+
   if (orderPlaced) {
+    return (
+      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
+
+        <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center text-center">
+
+          <Reveal>
+            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600">
+              <FiCheck size={42} />
+            </div>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <p className="mt-8 font-semibold uppercase tracking-[0.25em] text-green-600">
+              Order Confirmed
+            </p>
+          </Reveal>
+
+          <Reveal delay={250}>
+            <h1 className="mt-4 text-4xl font-extrabold text-[#173b2c] sm:text-6xl">
+              Thank You!
+            </h1>
+          </Reveal>
+
+          <Reveal delay={350}>
+            <p className="mt-6 max-w-xl text-base leading-8 text-gray-500 sm:text-lg">
+              Your order has been successfully placed.
+              We will send the order details to your email shortly.
+            </p>
+          </Reveal>
+
+          <Reveal delay={450}>
+            <Link
+              to="/shop"
+              className="mt-10 inline-flex items-center justify-center rounded-full bg-green-600 px-10 py-4 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
+            >
+              Continue Shopping
+            </Link>
+          </Reveal>
+
+        </div>
+
+      </section>
+    );
+  }
+
+
   return (
-    <section className="min-h-[calc(100vh-100px)] bg-[#f8fbf8] px-6 py-20">
-      <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center text-center">
-
-        <Reveal>
-          <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600">
-            <FiCheck size={42} />
-          </div>
-        </Reveal>
-
-        <Reveal delay={150}>
-          <p className="mt-8 font-semibold uppercase tracking-[0.25em] text-green-600">
-            Order Confirmed
-          </p>
-        </Reveal>
-
-        <Reveal delay={250}>
-          <h1 className="mt-4 text-4xl font-extrabold text-[#173b2c] sm:text-6xl">
-            Thank You!
-          </h1>
-        </Reveal>
-
-        <Reveal delay={350}>
-          <p className="mt-6 max-w-xl text-base leading-8 text-gray-500 sm:text-lg">
-            Your order has been successfully placed.
-            We will send the order details to your email shortly.
-          </p>
-        </Reveal>
-
-        <Reveal delay={450}>
-          <Link
-            to="/shop"
-            className="mt-10 inline-flex items-center justify-center rounded-full bg-green-600 px-10 py-4 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
-          >
-            Continue Shopping
-          </Link>
-        </Reveal>
-
-      </div>
-    </section>
-  );
-}
-
-  return (
-    <section className="min-h-[calc(100vh-100px)] bg-[#f8fbf8] px-6 py-16 lg:px-8">
+    <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-16 lg:px-8">
 
       <div className="mx-auto max-w-7xl">
 
-  
 
         <Reveal>
+
           <div className="mb-12">
 
-            <p className="font-semibold uppercase tracking-widest text-green-600">
+            <p className="font-semibold uppercase tracking-[0.25em] text-green-600">
               Almost There
             </p>
 
@@ -147,12 +167,13 @@ function Checkout() {
             </p>
 
           </div>
+
         </Reveal>
 
 
         <div className="grid gap-10 lg:grid-cols-3">
 
-
+          {/* FORM */}
 
           <div className="lg:col-span-2">
 
@@ -163,6 +184,8 @@ function Checkout() {
                 className="rounded-3xl border border-gray-100 bg-white p-7 shadow-sm sm:p-9"
               >
 
+                {/* DELIVERY */}
+
                 <div className="flex items-center gap-3">
 
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-700">
@@ -170,6 +193,7 @@ function Checkout() {
                   </div>
 
                   <div>
+
                     <h2 className="text-2xl font-bold text-[#173b2c]">
                       Delivery Details
                     </h2>
@@ -177,13 +201,13 @@ function Checkout() {
                     <p className="text-sm text-gray-500">
                       Where should we deliver your order?
                     </p>
+
                   </div>
 
                 </div>
 
 
                 <div className="mt-8 grid gap-5 sm:grid-cols-2">
-
 
 
                   <div className="sm:col-span-2">
@@ -224,7 +248,6 @@ function Checkout() {
 
                   </div>
 
-
                   <div>
 
                     <label className="mb-2 block text-sm font-semibold text-gray-700">
@@ -242,7 +265,6 @@ function Checkout() {
                     />
 
                   </div>
-
 
                   <div className="sm:col-span-2">
 
@@ -280,7 +302,6 @@ function Checkout() {
                     />
 
                   </div>
-
 
 
                   <div>
@@ -333,6 +354,7 @@ function Checkout() {
                     </div>
 
                     <div>
+
                       <h2 className="text-2xl font-bold text-[#173b2c]">
                         Payment
                       </h2>
@@ -340,6 +362,7 @@ function Checkout() {
                       <p className="text-sm text-gray-500">
                         Payment options will be available soon.
                       </p>
+
                     </div>
 
                   </div>
@@ -361,53 +384,85 @@ function Checkout() {
           </div>
 
 
+
           <Reveal delay={200}>
 
             <div className="h-fit rounded-3xl border border-gray-100 bg-white p-7 shadow-sm lg:sticky lg:top-28">
 
-              <h2 className="text-2xl font-bold text-[#173b2c]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-600">
+                Summary
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold text-[#173b2c]">
                 Your Order
               </h2>
 
 
+
               <div className="mt-7 space-y-5">
 
-                {cart.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex gap-4"
-                  >
+                {cart.map((item) => {
 
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                  const itemPrice = item.price;
 
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="h-full w-full object-cover"
-                      />
+                  const itemTotal =
+                    itemPrice * item.quantity;
+
+                  const originalPrice =
+                    item.originalPrice ?? item.price;
+
+                  const hasDiscount =
+                    originalPrice > item.price;
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex gap-4"
+                    >
+
+                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gray-100">
+
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                        />
+
+                      </div>
+
+
+                      <div className="min-w-0 flex-1">
+
+                        <h3 className="truncate font-semibold text-gray-800">
+                          {item.name}
+                        </h3>
+
+                        <p className="mt-1 text-sm text-gray-500">
+                          Qty: {item.quantity}
+                        </p>
+
+                      </div>
+
+
+                      <div className="text-right">
+
+                        <p className="font-semibold text-gray-800">
+                          ₹{itemTotal.toFixed(0)}
+                        </p>
+
+                        {hasDiscount && (
+                          <p className="text-xs text-gray-400 line-through">
+                            ₹{(
+                              originalPrice * item.quantity
+                            ).toFixed(0)}
+                          </p>
+                        )}
+
+                      </div>
 
                     </div>
-
-
-                    <div className="min-w-0 flex-1">
-
-                      <h3 className="truncate font-semibold text-gray-800">
-                        {item.name}
-                      </h3>
-
-                      <p className="mt-1 text-sm text-gray-500">
-                        Qty: {item.quantity}
-                      </p>
-
-                    </div>
-
-
-                    <p className="font-semibold text-gray-800">
-                      ₹{item.price * item.quantity}
-                    </p>
-
-                  </div>
-                ))}
+                  );
+                })}
 
               </div>
 
@@ -415,18 +470,41 @@ function Checkout() {
               <div className="my-7 border-t border-gray-100" />
 
 
+
               <div className="space-y-4">
 
                 <div className="flex justify-between text-gray-600">
+
                   <span>Subtotal</span>
-                  <span>₹{cartTotal}</span>
+
+                  <span>
+                    ₹{originalTotal.toFixed(0)}
+                  </span>
+
                 </div>
 
+
+                {totalDiscount > 0 && (
+                  <div className="flex justify-between text-gray-600">
+
+                    <span>Discount</span>
+
+                    <span className="font-semibold text-green-600">
+                      -₹{totalDiscount.toFixed(0)}
+                    </span>
+
+                  </div>
+                )}
+
+
                 <div className="flex justify-between text-gray-600">
+
                   <span>Shipping</span>
+
                   <span className="font-semibold text-green-600">
                     Free
                   </span>
+
                 </div>
 
               </div>
@@ -435,14 +513,15 @@ function Checkout() {
               <div className="my-6 border-t border-gray-100" />
 
 
-              <div className="flex justify-between">
+
+              <div className="flex items-center justify-between">
 
                 <span className="text-lg font-semibold text-gray-800">
                   Total
                 </span>
 
                 <span className="text-2xl font-extrabold text-green-700">
-                  ₹{cartTotal}
+                  ₹{cartTotal.toFixed(0)}
                 </span>
 
               </div>
