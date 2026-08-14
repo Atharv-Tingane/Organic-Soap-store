@@ -49,11 +49,10 @@ function Shop() {
   }
 
   return (
-    <section className="min-h-screen bg-[#f8faf8] px-6 py-20">
+    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
 
       <div className="mx-auto max-w-7xl">
 
-        {/* ================= HEADING ================= */}
 
         <div className="mb-12 text-center">
 
@@ -71,7 +70,7 @@ function Shop() {
 
           <Reveal delay={240}>
             <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-              Discover our handcrafted organic skincare products made with
+              Thoughtfully crafted skincare essentials made with
               carefully selected natural ingredients.
             </p>
           </Reveal>
@@ -79,48 +78,46 @@ function Shop() {
         </div>
 
 
-        {/* ================= SEARCH ================= */}
 
         <div className="mb-8">
-          <Reveal delay={350}>
+
+          <Reveal delay={300}>
             <SearchBar
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             />
           </Reveal>
+
         </div>
 
 
-        {/* ================= SORT ================= */}
+        <Reveal delay={350}>
 
-        <Reveal delay={400}>
           <SortBar
             sortOption={sortOption}
             setSortOption={setSortOption}
             productCount={sortedProducts.length}
           />
+
         </Reveal>
-
-
-        {/* ================= SIDEBAR + PRODUCTS ================= */}
 
         <div className="mt-8 grid gap-10 lg:grid-cols-4">
 
-          {/* Sidebar */}
 
           <div className="lg:col-span-1">
 
-            <Reveal delay={450}>
+            <Reveal delay={400}>
+
               <Sidebar
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
               />
+
             </Reveal>
 
           </div>
 
 
-          {/* Product Grid */}
 
           <div className="lg:col-span-3">
 

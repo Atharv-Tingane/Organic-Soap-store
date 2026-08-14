@@ -31,7 +31,7 @@ const testimonials = [
 
 function Testimonials() {
   return (
-   <section className="bg-[#f8faf8] pt-20 pb-10">
+   <section className="bg-[#f8faf8] pt-10 pb-10">
 
       <div className="mx-auto max-w-7xl px-6">
 
