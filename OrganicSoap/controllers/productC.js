@@ -2,7 +2,7 @@ const slugify = require('slugify')
 const Product = require('../models/productM')
 const Category = require('../models/categoryM')
 
-const Product =  require("../models/productM");
+// const Product =  require("../models/productM");
 const mongoose  = require('mongoose');
 async function getAllProducts (req,res){
     const products = await Product.find();
@@ -14,40 +14,54 @@ async function getProductById(req,res){
     const product = await Product.findById(id);
     res.json( product )
 }
-async function createProduct (req,res){
-    const {name, desc, category, weight, unit, benifits, ingresdients, tags, isActive, inStock, price, discounted_price } = req.body;
-    const slug = `${slugify(name, { lower: true, strict: true })}-${Date.now().toString().slice(-4)}`;
-    try{
+async function createProduct(req, res) {
+    const {
+        name,
+        desc,
+        category,
+        weight,
+        unit,
+        benefits,
+        ingredients,
+        tags,
+        isActive,
+        inStock,
+        price,
+        discounted_price
+    } = req.body;
+
+    try {
+        const slug = `${slugify(name, { lower: true, strict: true })}-${Date.now().toString().slice(-4)}`;
 
         let categoryDoc = await Category.findOne({ name: category.toLowerCase() });
-        
+
         if (!categoryDoc) {
             categoryDoc = await Category.create({ name: category.toLowerCase() });
         }
-        
+
         const product = await Product.create({
             name,
+            desc,
             slug,
             category: categoryDoc._id,
             weight: {
                 value: weight.value,
                 unit: weight.unit
             },
-    benefits,         
-    ingredients,
-    tags,
-    isActive,
-    inStock,
-    price,
-    discounted_price
-});
-res.status(200),json("product created successfullyy");   
-}catch(err){
-    console.log(err);
-    res.status(404);
-    
-}
+            benefits,
+            ingredients,
+            tags,
+            isActive,
+            inStock,
+            price,
+            discounted_price
+        });
 
+        res.status(200).json({ message: "Product created successfully", product });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
 }
 
 async function updateProduct(req, res) {

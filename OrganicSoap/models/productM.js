@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
 
     benefits: [{ type: String }],
     ingredients: [{ type: String }],
-    hashtags: [{ type: String }],
+    tags: [{ type: String }],
 
     is_active: { type: Boolean, default: false },
     inStock: { type: Number, default: 0 },
