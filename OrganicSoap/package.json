@@ -136,6 +136,7 @@
     "set-cookie-parser": "^2.7.2",
     "shebang-command": "^2.0.0",
     "shebang-regex": "^3.0.0",
+    "slugify": "^1.6.9",
     "source-map-js": "^1.2.1",
     "swiper": "^14.0.7",
     "tailwind-merge": "^3.6.0",
