@@ -13,6 +13,9 @@ function Shop() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortOption, setSortOption] = useState("featured");
 
+  // Maximum price filter
+  const [maxPrice, setMaxPrice] = useState(1000);
+
   // Filter products
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -23,7 +26,9 @@ function Shop() {
       selectedCategory === "All" ||
       product.category === selectedCategory;
 
-    return matchesSearch && matchesCategory;
+    const matchesPrice = product.price <= maxPrice;
+
+    return matchesSearch && matchesCategory && matchesPrice;
   });
 
   // Sort products
@@ -49,12 +54,12 @@ function Shop() {
   }
 
   return (
-    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
+    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-4 py-16 sm:px-6 sm:py-20">
 
       <div className="mx-auto max-w-7xl">
 
 
-        <div className="mb-12 text-center">
+        <div className="mb-10 text-center sm:mb-12">
 
           <Reveal>
             <p className="font-semibold uppercase tracking-[0.3em] text-green-600">
@@ -69,7 +74,7 @@ function Shop() {
           </Reveal>
 
           <Reveal delay={240}>
-            <p className="mx-auto mt-4 max-w-2xl text-gray-500">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-500 sm:text-base">
               Thoughtfully crafted skincare essentials made with
               carefully selected natural ingredients.
             </p>
@@ -77,9 +82,7 @@ function Shop() {
 
         </div>
 
-
-
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
 
           <Reveal delay={300}>
             <SearchBar
@@ -101,7 +104,8 @@ function Shop() {
 
         </Reveal>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-4">
+
+        <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-4 lg:gap-10">
 
 
           <div className="lg:col-span-1">
@@ -111,12 +115,13 @@ function Shop() {
               <Sidebar
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
+                maxPrice={maxPrice}
+                setMaxPrice={setMaxPrice}
               />
 
             </Reveal>
 
           </div>
-
 
 
           <div className="lg:col-span-3">

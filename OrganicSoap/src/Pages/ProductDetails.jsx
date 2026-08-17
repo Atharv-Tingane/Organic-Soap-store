@@ -4,7 +4,6 @@ import {
   FiStar,
   FiShoppingCart,
   FiArrowLeft,
-  FiCheck,
 } from "react-icons/fi";
 
 import products from "../data/products";
@@ -25,6 +24,7 @@ function ProductDetails() {
     return (
       <section className="flex min-h-[70vh] items-center justify-center bg-[#f8faf8] px-6">
         <div className="text-center">
+
           <h1 className="text-3xl font-bold text-gray-800">
             Product not found
           </h1>
@@ -36,6 +36,7 @@ function ProductDetails() {
             <FiArrowLeft />
             Back to Shop
           </Link>
+
         </div>
       </section>
     );
@@ -46,20 +47,27 @@ function ProductDetails() {
   const discountedPrice =
     product.price - (product.price * discount) / 100;
 
-  const ingredients = product.ingredients || [];
-  const benefits = product.benefits || [];
+  const handleAddToCart = () => {
+    addToCart(
+      {
+        ...product,
+        discountedPrice,
+      },
+      quantity
+    );
+  };
 
   return (
-    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-12 lg:py-16">
+    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8faf8] to-white px-4 py-10 sm:px-6 sm:py-16">
 
       <div className="mx-auto max-w-7xl">
 
-        {/* Back to Shop */}
+        {/* Back Button */}
 
         <Reveal>
           <Link
             to="/shop"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-gray-500 transition hover:text-green-600"
+            className="mb-7 inline-flex items-center gap-2 text-sm font-semibold text-gray-500 transition hover:text-green-600 sm:mb-10"
           >
             <FiArrowLeft />
             Back to Shop
@@ -67,61 +75,82 @@ function ProductDetails() {
         </Reveal>
 
 
+        {/* Main Product Section */}
 
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-20">
 
+          {/* ================= IMAGE ================= */}
 
           <Reveal delay={100}>
 
-            <div className="group relative overflow-hidden rounded-4xl bg-white p-4 shadow-xl">
+            <div className="group relative overflow-hidden rounded-3xl bg-white p-2.5 shadow-lg sm:rounded-4xl sm:p-4">
 
-              {discount > 0 && (
-                <div className="absolute left-8 top-8 z-10 rounded-full bg-green-600 px-4 py-2 text-sm font-bold text-white shadow-lg">
-                  {discount}% OFF
-                </div>
-              )}
-
-              <div className="absolute inset-12 rounded-full bg-green-100/40 blur-3xl" />
+              <div className="absolute inset-6 rounded-full bg-green-100/40 blur-3xl sm:inset-8" />
 
               <img
                 src={product.image}
                 alt={product.name}
-                className="relative h-120 w-full rounded-3xl object-cover transition duration-700 group-hover:scale-[1.02] sm:h-144"
+                className="
+                  relative
+                  h-80 w-full
+                  rounded-2xl
+                  object-cover
+                  transition duration-500
+                  group-hover:scale-[1.02]
+                  sm:h-112.5
+                  sm:rounded-3xl
+                  lg:h-137.5
+                "
               />
+
+              {/* Discount Badge */}
+
+              {discount > 0 && (
+                <div className="absolute left-5 top-5 rounded-full bg-green-600 px-3 py-1.5 text-xs font-bold text-white shadow-md sm:left-7 sm:top-7">
+                  {discount}% OFF
+                </div>
+              )}
 
             </div>
 
           </Reveal>
 
 
+          {/* ================= PRODUCT INFO ================= */}
+
           <div>
 
-            <Reveal delay={150}>
-              <p className="font-semibold uppercase tracking-[0.25em] text-green-600">
+            {/* Category */}
+
+            <Reveal delay={200}>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-600 sm:tracking-[0.25em]">
                 {product.category}
               </p>
             </Reveal>
 
 
-            <Reveal delay={200}>
-              <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-[#173b2c] sm:text-5xl">
+            {/* Name */}
+
+            <Reveal delay={300}>
+              <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#173b2c] sm:mt-3 sm:text-5xl">
                 {product.name}
               </h1>
             </Reveal>
 
 
+            {/* Rating */}
 
-            <Reveal delay={250}>
+            <Reveal delay={400}>
 
-              <div className="mt-5 flex items-center gap-3">
+              <div className="mt-4 flex items-center gap-2 sm:mt-5 sm:gap-3">
 
-                <div className="flex gap-1 text-yellow-500">
+                <div className="flex gap-0.5 text-yellow-500 sm:gap-1">
 
-                  {[1, 2, 3, 4, 5].map((star) => (
+                  {[...Array(5)].map((_, index) => (
                     <FiStar
-                      key={star}
-                      size={18}
-                      className="fill-yellow-400"
+                      key={index}
+                      size={16}
+                      className="fill-yellow-400 sm:h-4.5 sm:w-4.5"
                     />
                   ))}
 
@@ -136,24 +165,20 @@ function ProductDetails() {
             </Reveal>
 
 
-            <Reveal delay={300}>
+            {/* Price */}
 
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Reveal delay={500}>
 
-                <span className="text-3xl font-extrabold text-green-700">
+              <div className="mt-5 flex items-center gap-3 sm:mt-6">
+
+                <p className="text-3xl font-bold text-green-700 sm:text-4xl">
                   ₹{discountedPrice.toFixed(0)}
-                </span>
+                </p>
 
                 {discount > 0 && (
-                  <>
-                    <span className="text-lg text-gray-400 line-through">
-                      ₹{product.price}
-                    </span>
-
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-bold text-green-700">
-                      {discount}% OFF
-                    </span>
-                  </>
+                  <p className="text-sm text-gray-400 line-through sm:text-base">
+                    ₹{product.price}
+                  </p>
                 )}
 
               </div>
@@ -161,24 +186,29 @@ function ProductDetails() {
             </Reveal>
 
 
+            {/* Divider */}
 
-            <Reveal delay={350}>
+            <Reveal delay={550}>
+              <div className="my-6 h-px w-full bg-gray-200 sm:my-7" />
+            </Reveal>
 
-              <p className="mt-6 max-w-xl text-base leading-8 text-gray-600">
-                {product.description ||
-                  "A thoughtfully handcrafted product made for your everyday skincare ritual."}
+
+            {/* Description */}
+
+            <Reveal delay={600}>
+
+              <p className="text-sm leading-7 text-gray-600 sm:text-base sm:leading-8">
+                {product.description}
               </p>
 
             </Reveal>
 
 
-            <div className="my-7 h-px w-full bg-gray-200" />
+            {/* Quantity */}
 
+            <Reveal delay={700}>
 
-
-            <Reveal delay={400}>
-
-              <div>
+              <div className="mt-7 sm:mt-8">
 
                 <p className="mb-3 text-sm font-semibold text-gray-800">
                   Quantity
@@ -188,14 +218,16 @@ function ProductDetails() {
 
                   <button
                     onClick={() =>
-                      setQuantity((prev) => Math.max(1, prev - 1))
+                      setQuantity((prev) =>
+                        Math.max(1, prev - 1)
+                      )
                     }
-                    className="px-5 py-3 text-xl text-gray-600 transition hover:bg-gray-100"
+                    className="px-5 py-3 text-xl text-gray-600 transition hover:bg-gray-100 active:bg-gray-200"
                   >
                     −
                   </button>
 
-                  <span className="min-w-14 px-5 py-3 text-center font-semibold text-gray-800">
+                  <span className="min-w-14 px-4 py-3 text-center font-semibold text-gray-800">
                     {quantity}
                   </span>
 
@@ -203,7 +235,7 @@ function ProductDetails() {
                     onClick={() =>
                       setQuantity((prev) => prev + 1)
                     }
-                    className="px-5 py-3 text-xl text-gray-600 transition hover:bg-gray-100"
+                    className="px-5 py-3 text-xl text-gray-600 transition hover:bg-gray-100 active:bg-gray-200"
                   >
                     +
                   </button>
@@ -215,13 +247,32 @@ function ProductDetails() {
             </Reveal>
 
 
-            <Reveal delay={450}>
+            {/* Add To Cart */}
+
+            <Reveal delay={800}>
 
               <button
-                onClick={() => addToCart(product, quantity)}
-                className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-green-600 py-4 text-lg font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 hover:shadow-xl"
+                onClick={handleAddToCart}
+                className="
+                  mt-6
+                  flex w-full
+                  items-center justify-center gap-3
+                  rounded-xl
+                  bg-green-600
+                  py-3.5
+                  text-base font-semibold text-white
+                  shadow-lg shadow-green-600/20
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:bg-green-700
+                  hover:shadow-xl
+                  active:translate-y-0
+                  sm:mt-8
+                  sm:py-4
+                  sm:text-lg
+                "
               >
-                <FiShoppingCart size={22} />
+                <FiShoppingCart size={21} />
                 Add to Cart
               </button>
 
@@ -232,92 +283,98 @@ function ProductDetails() {
         </div>
 
 
-        <div className="mt-16 grid gap-6 border-t border-gray-200 pt-12 md:grid-cols-2">
+        {/* ================= INGREDIENTS & BENEFITS ================= */}
 
+        <div className="mt-16 border-t border-gray-200 pt-12 sm:mt-20 sm:pt-16">
 
-          <Reveal>
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
 
-            <div className="rounded-3xl border border-gray-100 bg-white p-7 shadow-sm">
+            {/* Ingredients */}
 
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-600">
-                What's inside
-              </p>
+            <Reveal>
 
-              <h2 className="mt-2 text-3xl font-bold text-[#173b2c]">
-                Ingredients
-              </h2>
+              <div className="rounded-3xl border border-gray-100 bg-white p-7 shadow-sm sm:p-9">
 
-              <div className="mt-6 space-y-3">
+                <p className="font-semibold uppercase tracking-[0.25em] text-green-600">
+                  What's Inside
+                </p>
 
-                {ingredients.length > 0 ? (
-                  ingredients.map((ingredient, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 rounded-xl bg-[#f5faf6] px-4 py-3"
-                    >
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-700">
-                        <FiCheck size={15} />
-                      </span>
+                <h2 className="mt-3 text-3xl font-bold text-[#173b2c]">
+                  Ingredients
+                </h2>
 
-                      <span className="font-medium text-gray-700">
+                {product.ingredients?.length > 0 ? (
+
+                  <ul className="mt-6 space-y-3">
+
+                    {product.ingredients.map((ingredient, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center gap-3 text-gray-600"
+                      >
+                        <span className="h-2 w-2 shrink-0 rounded-full bg-green-500" />
                         {ingredient}
-                      </span>
-                    </div>
-                  ))
+                      </li>
+                    ))}
+
+                  </ul>
+
                 ) : (
-                  <p className="text-gray-500">
+
+                  <p className="mt-6 text-gray-500">
                     Ingredient information coming soon.
                   </p>
+
                 )}
 
               </div>
 
-            </div>
-
-          </Reveal>
+            </Reveal>
 
 
+            {/* Benefits */}
 
-          <Reveal delay={100}>
+            <Reveal delay={150}>
 
-            <div className="rounded-3xl bg-[#173b2c] p-7 text-white shadow-sm">
+              <div className="rounded-3xl bg-[#123f2d] p-7 text-white shadow-sm sm:p-9">
 
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-300">
-                Why you'll love it
-              </p>
+                <p className="font-semibold uppercase tracking-[0.25em] text-green-300">
+                  Why You'll Love It
+                </p>
 
-              <h2 className="mt-2 text-3xl font-bold">
-                Benefits
-              </h2>
+                <h2 className="mt-3 text-3xl font-bold">
+                  Benefits
+                </h2>
 
-              <div className="mt-6 space-y-3">
+                {product.benefits?.length > 0 ? (
 
-                {benefits.length > 0 ? (
-                  benefits.map((benefit, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3"
-                    >
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-400/15 text-green-300">
-                        <FiCheck size={15} />
-                      </span>
+                  <ul className="mt-6 space-y-3">
 
-                      <span className="font-medium text-white/90">
+                    {product.benefits.map((benefit, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center gap-3 text-green-50"
+                      >
+                        <span className="h-2 w-2 shrink-0 rounded-full bg-green-300" />
                         {benefit}
-                      </span>
-                    </div>
-                  ))
+                      </li>
+                    ))}
+
+                  </ul>
+
                 ) : (
-                  <p className="text-white/60">
+
+                  <p className="mt-6 text-green-100/70">
                     Benefit information coming soon.
                   </p>
+
                 )}
 
               </div>
 
-            </div>
+            </Reveal>
 
-          </Reveal>
+          </div>
 
         </div>
 

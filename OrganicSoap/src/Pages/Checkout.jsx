@@ -40,40 +40,36 @@ function Checkout() {
     setOrderPlaced(true);
   };
 
-  // Original price before discount
+
   const originalTotal = cart.reduce(
-    (total, item) =>
-      total +
-      (item.originalPrice ?? item.price) * item.quantity,
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
-  // Total savings
+
+
   const totalDiscount = originalTotal - cartTotal;
-
-
-  // EMPTY CART
 
   if (cart.length === 0 && !orderPlaced) {
     return (
-      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
+      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-4 py-16 sm:px-6 sm:py-20">
 
-        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-20 text-center">
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-16 text-center sm:py-20">
 
           <Reveal>
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-700">
-              <FiShoppingBag size={38} />
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-700 sm:h-24 sm:w-24">
+              <FiShoppingBag size={34} />
             </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <h1 className="mt-7 text-4xl font-extrabold text-[#173b2c]">
+            <h1 className="mt-7 text-3xl font-extrabold text-[#173b2c] sm:text-4xl">
               Your Cart is Empty
             </h1>
           </Reveal>
 
           <Reveal delay={250}>
-            <p className="mt-4 text-gray-500">
+            <p className="mt-4 max-w-md text-sm leading-7 text-gray-500 sm:text-base">
               Add some products before proceeding to checkout.
             </p>
           </Reveal>
@@ -81,7 +77,7 @@ function Checkout() {
           <Reveal delay={350}>
             <Link
               to="/shop"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-green-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-green-600 px-6 py-3.5 font-semibold text-white transition hover:bg-green-700 sm:px-7"
             >
               <FiArrowLeft />
               Continue Shopping
@@ -95,34 +91,32 @@ function Checkout() {
   }
 
 
-  // ORDER SUCCESS
-
   if (orderPlaced) {
     return (
-      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-20">
+      <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-4 py-16 sm:px-6 sm:py-20">
 
-        <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center text-center">
+        <div className="mx-auto flex min-h-[65vh] max-w-3xl flex-col items-center justify-center text-center">
 
           <Reveal>
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600">
-              <FiCheck size={42} />
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-600 sm:h-24 sm:w-24">
+              <FiCheck size={38} />
             </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <p className="mt-8 font-semibold uppercase tracking-[0.25em] text-green-600">
+            <p className="mt-7 text-sm font-semibold uppercase tracking-[0.2em] text-green-600 sm:mt-8 sm:tracking-[0.25em]">
               Order Confirmed
             </p>
           </Reveal>
 
           <Reveal delay={250}>
-            <h1 className="mt-4 text-4xl font-extrabold text-[#173b2c] sm:text-6xl">
+            <h1 className="mt-3 text-4xl font-extrabold text-[#173b2c] sm:mt-4 sm:text-6xl">
               Thank You!
             </h1>
           </Reveal>
 
           <Reveal delay={350}>
-            <p className="mt-6 max-w-xl text-base leading-8 text-gray-500 sm:text-lg">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-gray-500 sm:mt-6 sm:text-lg sm:leading-8">
               Your order has been successfully placed.
               We will send the order details to your email shortly.
             </p>
@@ -131,7 +125,7 @@ function Checkout() {
           <Reveal delay={450}>
             <Link
               to="/shop"
-              className="mt-10 inline-flex items-center justify-center rounded-full bg-green-600 px-10 py-4 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-green-600 px-8 py-3.5 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 sm:mt-10 sm:px-10 sm:py-4"
             >
               Continue Shopping
             </Link>
@@ -145,24 +139,24 @@ function Checkout() {
 
 
   return (
-    <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-6 py-16 lg:px-8">
+    <section className="min-h-[calc(100vh-100px)] bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
 
       <div className="mx-auto max-w-7xl">
 
 
         <Reveal>
 
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
 
-            <p className="font-semibold uppercase tracking-[0.25em] text-green-600">
+            <p className="text-sm font-semibold uppercase tracking-widest text-green-600">
               Almost There
             </p>
 
-            <h1 className="mt-2 text-4xl font-extrabold text-[#173b2c] sm:text-5xl">
+            <h1 className="mt-2 text-3xl font-extrabold text-[#173b2c] sm:text-5xl">
               Checkout
             </h1>
 
-            <p className="mt-3 text-gray-500">
+            <p className="mt-3 text-sm text-gray-500 sm:text-base">
               Complete your details to place your order.
             </p>
 
@@ -171,9 +165,9 @@ function Checkout() {
         </Reveal>
 
 
-        <div className="grid gap-10 lg:grid-cols-3">
+        <div className="grid gap-7 lg:grid-cols-3 lg:gap-10">
 
-          {/* FORM */}
+
 
           <div className="lg:col-span-2">
 
@@ -181,24 +175,23 @@ function Checkout() {
 
               <form
                 onSubmit={handleSubmit}
-                className="rounded-3xl border border-gray-100 bg-white p-7 shadow-sm sm:p-9"
+                className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:rounded-3xl sm:p-9"
               >
 
-                {/* DELIVERY */}
 
                 <div className="flex items-center gap-3">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-700">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-700">
                     <FiMapPin />
                   </div>
 
                   <div>
 
-                    <h2 className="text-2xl font-bold text-[#173b2c]">
+                    <h2 className="text-xl font-bold text-[#173b2c] sm:text-2xl">
                       Delivery Details
                     </h2>
 
-                    <p className="text-sm text-gray-500">
+                    <p className="text-xs text-gray-500 sm:text-sm">
                       Where should we deliver your order?
                     </p>
 
@@ -207,8 +200,8 @@ function Checkout() {
                 </div>
 
 
-                <div className="mt-8 grid gap-5 sm:grid-cols-2">
 
+                <div className="mt-7 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5">
 
                   <div className="sm:col-span-2">
 
@@ -223,11 +216,10 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       placeholder="Enter your full name"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
-
 
 
                   <div>
@@ -243,10 +235,11 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       placeholder="you@example.com"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
+
 
                   <div>
 
@@ -261,7 +254,7 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       placeholder="Enter phone number"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
@@ -279,7 +272,7 @@ function Checkout() {
                       required
                       rows="3"
                       placeholder="House no., street, area"
-                      className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
@@ -298,10 +291,11 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       placeholder="City"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
+
 
 
                   <div>
@@ -317,7 +311,7 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       placeholder="State"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
@@ -336,8 +330,9 @@ function Checkout() {
                       onChange={handleChange}
                       required
                       maxLength="6"
+                      inputMode="numeric"
                       placeholder="6-digit pincode"
-                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3.5 text-sm outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100 sm:text-base"
                     />
 
                   </div>
@@ -345,21 +340,21 @@ function Checkout() {
                 </div>
 
 
-                <div className="mt-10 border-t border-gray-100 pt-8">
+                <div className="mt-8 border-t border-gray-100 pt-7 sm:mt-10 sm:pt-8">
 
                   <div className="flex items-center gap-3">
 
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-700">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-700">
                       <FiCreditCard />
                     </div>
 
                     <div>
 
-                      <h2 className="text-2xl font-bold text-[#173b2c]">
+                      <h2 className="text-xl font-bold text-[#173b2c] sm:text-2xl">
                         Payment
                       </h2>
 
-                      <p className="text-sm text-gray-500">
+                      <p className="text-xs text-gray-500 sm:text-sm">
                         Payment options will be available soon.
                       </p>
 
@@ -372,7 +367,7 @@ function Checkout() {
 
                 <button
                   type="submit"
-                  className="mt-8 w-full rounded-full bg-green-600 py-4 font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700"
+                  className="mt-7 w-full rounded-full bg-green-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 sm:mt-8 sm:py-4 sm:text-base"
                 >
                   Place Order
                 </button>
@@ -387,40 +382,33 @@ function Checkout() {
 
           <Reveal delay={200}>
 
-            <div className="h-fit rounded-3xl border border-gray-100 bg-white p-7 shadow-sm lg:sticky lg:top-28">
+            <div className="h-fit rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:rounded-3xl sm:p-7 lg:sticky lg:top-28">
 
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-600">
-                Summary
-              </p>
-
-              <h2 className="mt-2 text-2xl font-bold text-[#173b2c]">
+              <h2 className="text-xl font-bold text-[#173b2c] sm:text-2xl">
                 Your Order
               </h2>
 
 
 
-              <div className="mt-7 space-y-5">
+              <div className="mt-6 space-y-4 sm:mt-7 sm:space-y-5">
 
                 {cart.map((item) => {
 
-                  const itemPrice = item.price;
+                  const itemPrice =
+                    item.discountedPrice ?? item.price;
 
                   const itemTotal =
                     itemPrice * item.quantity;
 
-                  const originalPrice =
-                    item.originalPrice ?? item.price;
-
-                  const hasDiscount =
-                    originalPrice > item.price;
-
                   return (
                     <div
                       key={item.id}
-                      className="flex gap-4"
+                      className="flex gap-3 sm:gap-4"
                     >
 
-                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                      {/* Image */}
+
+                      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-16 sm:w-16 sm:rounded-xl">
 
                         <img
                           src={item.image}
@@ -431,29 +419,33 @@ function Checkout() {
                       </div>
 
 
+            
+
                       <div className="min-w-0 flex-1">
 
-                        <h3 className="truncate font-semibold text-gray-800">
+                        <h3 className="truncate text-sm font-semibold text-gray-800 sm:text-base">
                           {item.name}
                         </h3>
 
-                        <p className="mt-1 text-sm text-gray-500">
+                        <p className="mt-1 text-xs text-gray-500 sm:text-sm">
                           Qty: {item.quantity}
                         </p>
 
                       </div>
 
 
+           
+
                       <div className="text-right">
 
-                        <p className="font-semibold text-gray-800">
+                        <p className="text-sm font-semibold text-gray-800 sm:text-base">
                           ₹{itemTotal.toFixed(0)}
                         </p>
 
-                        {hasDiscount && (
-                          <p className="text-xs text-gray-400 line-through">
+                        {item.discount > 0 && (
+                          <p className="text-[10px] text-gray-400 line-through sm:text-xs">
                             ₹{(
-                              originalPrice * item.quantity
+                              item.price * item.quantity
                             ).toFixed(0)}
                           </p>
                         )}
@@ -467,13 +459,12 @@ function Checkout() {
               </div>
 
 
-              <div className="my-7 border-t border-gray-100" />
+              <div className="my-6 border-t border-gray-100 sm:my-7" />
 
 
+              <div className="space-y-3 sm:space-y-4">
 
-              <div className="space-y-4">
-
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-sm text-gray-600 sm:text-base">
 
                   <span>Subtotal</span>
 
@@ -484,20 +475,18 @@ function Checkout() {
                 </div>
 
 
-                {totalDiscount > 0 && (
-                  <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-sm text-gray-600 sm:text-base">
 
-                    <span>Discount</span>
+                  <span>Discount</span>
 
-                    <span className="font-semibold text-green-600">
-                      -₹{totalDiscount.toFixed(0)}
-                    </span>
+                  <span className="font-semibold text-green-600">
+                    -₹{totalDiscount.toFixed(0)}
+                  </span>
 
-                  </div>
-                )}
+                </div>
 
 
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-sm text-gray-600 sm:text-base">
 
                   <span>Shipping</span>
 
@@ -510,17 +499,16 @@ function Checkout() {
               </div>
 
 
-              <div className="my-6 border-t border-gray-100" />
-
+              <div className="my-5 border-t border-gray-100 sm:my-6" />
 
 
               <div className="flex items-center justify-between">
 
-                <span className="text-lg font-semibold text-gray-800">
+                <span className="text-base font-semibold text-gray-800 sm:text-lg">
                   Total
                 </span>
 
-                <span className="text-2xl font-extrabold text-green-700">
+                <span className="text-xl font-extrabold text-green-700 sm:text-2xl">
                   ₹{cartTotal.toFixed(0)}
                 </span>
 

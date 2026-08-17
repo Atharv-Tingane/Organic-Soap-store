@@ -1,14 +1,16 @@
 import ProductCard from "../products/ProductCard";
 import Reveal from "../common/Reveal";
 
-function ProductGrid({ products }) {
+function ProductGrid({ products = [] }) {
+  const validProducts = products.filter(Boolean);
+
   return (
     <>
-      {products.length > 0 ? (
+      {validProducts.length > 0 ? (
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 xl:grid-cols-3">
 
-          {products.map((product, index) => (
+          {validProducts.map((product, index) => (
 
             <Reveal
               key={product.id}

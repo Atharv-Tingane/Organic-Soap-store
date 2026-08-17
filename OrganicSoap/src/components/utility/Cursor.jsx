@@ -5,9 +5,16 @@ function Cursor() {
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
+    // Disable custom cursor on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     const cursor = cursorRef.current;
 
     const moveCursor = (e) => {
+      if (!cursor) return;
+
       cursor.style.left = `${e.clientX}px`;
       cursor.style.top = `${e.clientY}px`;
     };
@@ -34,6 +41,13 @@ function Cursor() {
       document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
+
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches
+  ) {
+    return null;
+  }
 
   return (
     <div

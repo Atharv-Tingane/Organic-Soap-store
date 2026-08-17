@@ -11,21 +11,37 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import Admin from "../pages/Admin";
+import Story from "../pages/Story";
+import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
+
         <Route path="/" element={<Home />} />
+
         <Route path="/shop" element={<Shop />} />
+
         <Route path="/product/:id" element={<ProductDetails />} />
+
         <Route path="/cart" element={<Cart />} />
+
         <Route path="/checkout" element={<Checkout />} />
+
+        <Route path="/story" element={<Story />} />
+
+        <Route path="/contact" element={<Contact />} />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/signup" element={<Signup />} />
+
         <Route path="/profile" element={<Profile />} />
+
         <Route path="/admin" element={<Admin />} />
+
       </Route>
 
       <Route path="*" element={<NotFound />} />
