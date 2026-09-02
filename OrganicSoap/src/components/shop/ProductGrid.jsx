@@ -13,7 +13,7 @@ function ProductGrid({ products = [] }) {
           {validProducts.map((product, index) => (
 
             <Reveal
-              key={product.id}
+              key={product.id || product._id}
               delay={index * 100}
             >
               <ProductCard product={product} />

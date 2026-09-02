@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import {
   FiShoppingCart,
   FiSearch,
@@ -11,6 +12,7 @@ import { useCart } from "../context/CartContext";
 import products from "../data/products";
 
 function Navbar() {
+  const { user } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
 
@@ -92,12 +94,13 @@ function Navbar() {
           {/* LOGO */}
 
           <Link
-            to="/"
-            onClick={closeAll}
-            className="shrink-0 text-xl font-extrabold tracking-tight text-green-700 sm:text-2xl"
-          >
-            OrganicSoap
-          </Link>
+  to="/"
+  onClick={closeAll}
+  className="shrink-0 text-xl font-extrabold tracking-tight text-green-700 sm:text-2xl"
+>
+  {user?.role === "admin" ? "OrganicSoap-Admin" : "OrganicSoap"}
+</Link>
+          
 
 
 

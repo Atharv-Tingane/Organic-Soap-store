@@ -8,6 +8,7 @@ import {
 
 import { useCart } from "../context/CartContext";
 import Reveal from "../components/common/Reveal";
+import { productPrice } from "../utils/product";
 
 function Cart() {
   const {
@@ -100,15 +101,14 @@ function Cart() {
 
             {cart.map((item, index) => {
 
-              const itemPrice =
-                item.discountedPrice ?? item.price;
+              const itemPrice = productPrice(item);
 
               const itemTotal =
                 itemPrice * item.quantity;
 
               return (
                 <Reveal
-                  key={item.id}
+                  key={item.id || item._id}
                   delay={index * 100}
                 >
 
@@ -171,7 +171,7 @@ function Cart() {
                           {/* Remove */}
 
                           <button
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item.id || item._id)}
                             className="
                               shrink-0
                               rounded-full
@@ -249,7 +249,7 @@ function Cart() {
                         <button
                           onClick={() =>
                             updateQuantity(
-                              item.id,
+                              item.id || item._id,
                               item.quantity - 1
                             )
                           }
@@ -266,7 +266,7 @@ function Cart() {
                         <button
                           onClick={() =>
                             updateQuantity(
-                              item.id,
+                              item.id || item._id,
                               item.quantity + 1
                             )
                           }

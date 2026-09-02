@@ -1,8 +1,9 @@
 import ProductCard from "../products/ProductCard";
-import products from "../../data/products";
+import { useProducts } from "../../context/ProductsContext";
 import Reveal from "../common/Reveal";
 
 function FeaturedProducts() {
+  const { products, loading } = useProducts();
   return (
    <section className="relative overflow-hidden bg-linear-to-b from-[#f2faf4] via-[#f8fbf8] to-[#f7fbf8] px-4 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-14 lg:pt-24 lg:pb-16">
 
@@ -48,7 +49,7 @@ function FeaturedProducts() {
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4 lg:gap-8">
 
-          {products.slice(0, 4).map((product, index) => (
+          {!loading && products.slice(0, 4).map((product, index) => (
 
             <Reveal
               key={product.id}
