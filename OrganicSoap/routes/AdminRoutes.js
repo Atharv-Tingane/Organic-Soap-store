@@ -1,0 +1,12 @@
+const express = require('express');
+const { z } = require('zod');
+const validate = require('../middleware/validate');
+const { protect, authorize } = require('../middleware/Auth');
+const { dashboard, getUsers, getUserDetail, updateUserStatus } = require('../controllers/adminC');
+const router = express.Router();
+router.use(protect, authorize('admin'));
+router.get('/dashboard', dashboard);
+router.get('/users', getUsers);
+router.get('/users/:id', getUserDetail);
+router.patch('/users/:id/status', validate(z.object({ isActive: z.boolean() }).strict()), updateUserStatus);
+module.exports = router;

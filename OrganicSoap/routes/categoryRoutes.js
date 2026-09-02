@@ -1,14 +1,12 @@
-const express = require('express')
-const  {
-    getAllCategories,
-    createCategory,
-    updateCategory,
-    deleteCategory,
-} = require('../controllers/categoryC')
+const express = require('express');
+const { z } = require('zod');
+const validate = require('../middleware/validate');
+const { getAllCategories, createCategory, updateCategory, deleteCategory } = require('../controllers/categoryC');
+const { protect, authorize } = require('../middleware/Auth');
 const router = express.Router();
-
-router.get("/", getAllCategories);
-router.post("/", createCategory);
-router.put("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
-module.exports = router
+const categoryInput = z.object({ name: z.string().trim().min(2).max(80).transform((name) => name.toLowerCase()) });
+router.get('/', getAllCategories);
+router.post('/', protect, authorize('admin'), validate(categoryInput), createCategory);
+router.put('/:id', protect, authorize('admin'), validate(categoryInput), updateCategory);
+router.delete('/:id', protect, authorize('admin'), deleteCategory);
+module.exports = router;

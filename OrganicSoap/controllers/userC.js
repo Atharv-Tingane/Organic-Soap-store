@@ -2,98 +2,18 @@ const User = require('../models/userM');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const cookieOptions = () => ({ httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', maxAge: 7 * 24 * 60 * 60 * 1000 });
+const publicUser = (user) => ({ _id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role, isActive: user.isActive });
+const tokenFor = (user) => jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
 
-async function signup(req,res){
-    // console.log("Entered");
-    
-    try{
-
-        const {name, email, password, phone} = req.body;
-        console.log(name, email, password, phone);
-    const isUser = await User.findOne({ email });
-    // console.log("uwwuuw");
-    
-    if(!isUser){
-        const hashedpassword = await bcrypt.hash(password, 12);
-        const user = await User.create({
-            name,
-            email,
-            password: hashedpassword,
-            phone,
-        })
-        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET);
-        // console.log(token); 
-        res.cookie('token', token, { 
-            httpOnly: true, 
-            secure:true,
-            sameSite:'none',
-            maxAge: 7*24*60*60*1000, // 7 days
-            
-        });
-        res.status(201).json({ _id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role })
-    } else {
-        res.status(400).json({ message: 'User already exists' });
-    }
-}catch (err){
-    res.status(500).json({ message: 'Server error' })
-}
-}
-
-
-
-async function login(req,res){
-    try{
-        const {email, password} = req.body;
-        const user = await User.findOne({email});
-        if(!user) return res.status(400).json({ message: 'Invalid email or password' });
-        const isMatch = await bcrypt.compare(password, user.password);
-        if(!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
-        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET);
-        res.cookie('token', token, { 
-            httpOnly: true, 
-            secure:true,
-            sameSite:'none',
-            maxAge: 7*24*60*60*1000, // 7 days
-            
-        });
-        res.status(201).json({ _id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role }) 
-    }catch (err){
-    res.status(500).json({ message: 'Server error' })
-}
-}
-
-
-
-async function logout(req,res){
-    try{
-    res.clearCookie('token',{
-        httpOnly:true,
-        secure:true,
-        sameSite: 'none'
-    });
-     res.json({ message: 'Logged out successfully' })}
-catch(err){
-    res.status(401).json({ message: 'Failed to logout' })
-}
-
-}
-
-
-async function getUser(req,res){
-try{
-    const token = req.cookies.token;
-    if(!token) return res.status(401).json({message: 'Not Authorized'})
-    const decoded = jwt.verify(token,process.env.JWT_SECRET)
-    const user = await User.findById(decoded.id).select('-password');
-    if(!user) return res.status(404).json({message: 'User not found'})
-    res.status(200).json(user)
-} catch (err) {
-    res.status(401).json({ message: 'Not authorized' })
-  }
-}
-
-
-module.exports = {signup, login, logout, getUser};
-
-
-
+async function signup(req, res, next) { try { const { name, email, password, phone } = req.body; if (await User.exists({ email })) return res.status(409).json({ message: 'An account with this email already exists' }); const user = await User.create({ name, email, password: await bcrypt.hash(password, 12), phone }); const token = tokenFor(user); res.cookie('token', token, cookieOptions()); res.status(201).json({ token, user: publicUser(user) }); } catch (error) { next(error); } }
+async function login(req, res, next) { try { const { email, password } = req.body; const user = await User.findOne({ email }).select('+password'); if (!user || !(await bcrypt.compare(password, user.password))) return res.status(401).json({ message: 'Invalid email or password' }); if (!user.isActive) return res.status(403).json({ message: 'This account has been blocked' }); const token = tokenFor(user); res.cookie('token', token, cookieOptions()); res.status(200).json({ token, user: publicUser(user) }); } catch (error) { next(error); } }
+function logout(req, res) { res.clearCookie('token', cookieOptions()); res.status(200).json({ message: 'Logged out successfully' }); }
+async function getUser(req, res, next) { try { const user = await User.findById(req.user.id).select('-password'); if (!user) return res.status(404).json({ message: 'User not found' }); res.status(200).json({ user }); } catch (error) { next(error); } }
+async function updateProfile(req, res, next) { try { const user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true, runValidators: true }).select('-password'); res.json({ user }); } catch (error) { next(error); } }
+async function getAddresses(req, res, next) { try { const user = await User.findById(req.user.id).select('addresses'); res.json({ addresses: user.addresses }); } catch (error) { next(error); } }
+async function addAddress(req, res, next) { try { const user = await User.findById(req.user.id); if (req.body.isDefault || user.addresses.length === 0) user.addresses.forEach((address) => { address.isDefault = false; }); user.addresses.push(req.body); await user.save(); res.status(201).json({ address: user.addresses[user.addresses.length - 1] }); } catch (error) { next(error); } }
+async function updateAddress(req, res, next) { try { const user = await User.findById(req.user.id); const address = user.addresses.id(req.params.id); if (!address) return res.status(404).json({ message: 'Address not found' }); if (req.body.isDefault) user.addresses.forEach((entry) => { entry.isDefault = false; }); address.set(req.body); await user.save(); res.json({ address }); } catch (error) { next(error); } }
+async function deleteAddress(req, res, next) { try { const user = await User.findById(req.user.id); const address = user.addresses.id(req.params.id); if (!address) return res.status(404).json({ message: 'Address not found' }); const wasDefault = address.isDefault; user.addresses.pull({ _id: address._id }); if (wasDefault && user.addresses.length) user.addresses[0].isDefault = true; await user.save(); res.status(204).send(); } catch (error) { next(error); } }
+async function setDefaultAddress(req, res, next) { try { const user = await User.findById(req.user.id); const address = user.addresses.id(req.params.id); if (!address) return res.status(404).json({ message: 'Address not found' }); user.addresses.forEach((entry) => { entry.isDefault = entry._id.equals(address._id); }); await user.save(); res.json({ address }); } catch (error) { next(error); } }
+module.exports = { signup, login, logout, getUser, updateProfile, getAddresses, addAddress, updateAddress, deleteAddress, setDefaultAddress };

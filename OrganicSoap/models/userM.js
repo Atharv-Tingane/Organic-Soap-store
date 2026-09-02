@@ -26,6 +26,12 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
 
+    isActive: {
+        type: Boolean,
+        default: true,
+        index: true
+    },
+
     addresses: [{
         name: String,
         phone: String,
@@ -60,26 +66,17 @@ const UserSchema = new mongoose.Schema({
         default: 0
     },
 
-    reviews: [{
-        productId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
-        },
-        rating: {
-            type: Number,
-            min: 1,
-            max: 5
-        },
-        review: {
-            type: String,
-            trim: true
-        }
-    }],
-
     opinion: {
         type: String,
         trim: true
     }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+// Reviews live in their own collection. Populate this virtual when a user's reviews are needed.
+UserSchema.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'user'
+});
 
 module.exports = mongoose.model("User", UserSchema);

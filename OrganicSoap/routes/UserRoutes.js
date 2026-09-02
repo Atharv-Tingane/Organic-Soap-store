@@ -1,11 +1,24 @@
 const express = require('express');
+const { z } = require('zod');
+const validate = require('../middleware/validate');
+const { signup, login, logout, getUser, updateProfile, getAddresses, addAddress, updateAddress, deleteAddress, setDefaultAddress } = require('../controllers/userC');
+const { protect } = require('../middleware/Auth');
+const { rateLimit } = require('../middleware/security');
 const router = express.Router();
-const {signup, login, logout, getUser} = require('../controllers/userC');
-const protect = require('../middleware/Auth');
-
-router.post('/signup', signup);
-router.post('/login', login);
+const email = z.string().trim().email().max(254).toLowerCase();
+const authRateLimit = rateLimit({ windowMs: 15 * 60 * 1000, max: 30 });
+router.post('/signup', authRateLimit, validate(z.object({ name: z.string().trim().min(2).max(100), email, password: z.string().min(8).max(128), phone: z.string().trim().min(6).max(30) })), signup);
+router.post('/login', authRateLimit, validate(z.object({ email, password: z.string().min(1).max(128) })), login);
 router.post('/logout', logout);
 router.get('/user', protect, getUser);
-
+const profileInput = z.object({ name: z.string().trim().min(2).max(100).optional(), phone: z.string().trim().min(6).max(30).optional(), DOB: z.coerce.date().max(new Date()).optional() }).strict().refine((body) => Object.keys(body).length > 0, { message: 'Provide at least one field to update' });
+const addressInput = z.object({ name: z.string().trim().min(2).max(100), phone: z.string().trim().min(6).max(30), addressLine: z.string().trim().min(5).max(300), city: z.string().trim().min(2).max(100), state: z.string().trim().min(2).max(100), pincode: z.string().trim().min(3).max(20), isDefault: z.boolean().optional() }).strict();
+const addressUpdate = addressInput.partial().refine((body) => Object.keys(body).length > 0, { message: 'Provide at least one field to update' });
+router.get('/profile', protect, getUser);
+router.patch('/profile', protect, validate(profileInput), updateProfile);
+router.get('/addresses', protect, getAddresses);
+router.post('/addresses', protect, validate(addressInput), addAddress);
+router.patch('/addresses/:id', protect, validate(addressUpdate), updateAddress);
+router.patch('/addresses/:id/default', protect, setDefaultAddress);
+router.delete('/addresses/:id', protect, deleteAddress);
 module.exports = router;
