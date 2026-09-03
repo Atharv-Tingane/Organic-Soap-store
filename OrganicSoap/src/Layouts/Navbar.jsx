@@ -12,7 +12,7 @@ import { useCart } from "../context/CartContext";
 import products from "../data/products";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
 
@@ -218,26 +218,49 @@ function Navbar() {
             </Link>
 
 
-            {/* LOGIN */}
+            {/* AUTH */}
+            {!user ? (
 
-            <Link
-              to="/login"
-              onClick={closeAll}
-              className="
-                hidden rounded-xl
-                bg-green-600
-                px-5 py-2
-                font-medium text-white
-                shadow-sm
-                transition-all duration-300
-                hover:-translate-y-0.5
-                hover:bg-green-700
-                hover:shadow-md
-                md:block
-              "
-            >
-              Login
-            </Link>
+              <Link
+                to="/login"
+                onClick={closeAll}
+                className="
+                  hidden rounded-xl
+                  bg-green-600
+                  px-5 py-2
+                  font-medium text-white
+                  shadow-sm
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-green-700
+                  hover:shadow-md
+                  md:block
+                "
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  logout();
+                  closeAll();
+                }}
+                className="
+                  hidden rounded-xl
+                  bg-green-600
+                  px-5 py-2
+                  font-medium text-white
+                  shadow-sm
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-green-700
+                  hover:shadow-md
+                  md:block
+                "
+              >
+                Logout
+              </button>
+            )}
 
 
             {/* MOBILE MENU */}
@@ -505,23 +528,33 @@ function Navbar() {
                 Contact
               </NavLink>
 
-              <Link
-                to="/login"
-                onClick={closeAll}
-                className="
-                  mt-2
-                  rounded-xl
-                  bg-green-600
-                  px-4 py-3
-                  text-center
-                  font-semibold
-                  text-white
-                  transition
-                  hover:bg-green-700
-                "
-              >
-                Login
-              </Link>
+              {!user ? (
+                <Link
+                  to="/login"
+                  onClick={closeAll}
+                  className="
+                    mt-2 rounded-xl bg-green-600 px-4 py-3
+                    text-center font-semibold text-white transition
+                    hover:bg-green-700
+                  "
+                >
+                  Login
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    logout();
+                    closeAll();
+                  }}
+                  className="
+                    mt-2 rounded-xl bg-green-600 px-4 py-3
+                    text-center font-semibold text-white transition
+                    hover:bg-green-700
+                  "
+                >
+                  Logout
+                </button>
+              )}
 
             </div>
 
