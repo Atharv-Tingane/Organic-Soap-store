@@ -1,5 +1,7 @@
 function parseProductForm(req, res, next) {
   try {
+    delete req.body.image;
+
     if (req.body.weight) {
       req.body.weight = JSON.parse(req.body.weight);
     }
