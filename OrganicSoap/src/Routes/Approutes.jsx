@@ -2,18 +2,18 @@ import { Routes, Route } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 
-import Home from "../pages/Home";
-import Shop from "../pages/Shop";
-import ProductDetails from "../pages/ProductDetails";
-import Cart from "../pages/Cart";
-import Checkout from "../pages/Checkout";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Profile from "../pages/Profile";
-import Admin from "../pages/Admin";
-import Story from "../pages/Story";
-import Contact from "../pages/Contact";
-import NotFound from "../pages/NotFound";
+import Home from "../Pages/Home";
+import Shop from "../Pages/Shop";
+import ProductDetails from "../Pages/ProductDetails";
+import Cart from "../Pages/Cart";
+import Checkout from "../Pages/Checkout";
+import Login from "../Pages/Login";
+import Signup from "../Pages/Signup";
+import Profile from "../Pages/Profile";
+import Admin from "../Pages/Admin";
+import Story from "../Pages/Story";
+import Contact from "../Pages/Contact";
+import NotFound from "../Pages/NotFound";
 
 const AppRoutes = () => {
   return (

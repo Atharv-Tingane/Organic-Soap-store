@@ -55,7 +55,7 @@ function Cursor() {
       className={`custom-cursor ${
         hovering ? "cursor-hover" : ""
       }`}
-    />
+    ><div className = "dot"></div></div>
   );
 }
 

@@ -98,7 +98,7 @@ function Navbar() {
   onClick={closeAll}
   className="shrink-0 text-xl font-extrabold tracking-tight text-green-700 sm:text-2xl"
 >
-  {user?.role === "admin" ? "OrganicSoap-Admin" : "OrganicSoap"}
+  {user?.role === "admin" ? "OrganicSoap 🦋 Admin" : "OrganicSoap"}
 </Link>
           
 
@@ -141,6 +141,17 @@ function Navbar() {
                 Contact
               </NavLink>
             </li>
+
+            {user?.role === "admin" && (
+              <li>
+                <NavLink
+                  to="/admin"
+                  className="font-medium text-gray-700 transition hover:text-green-600"
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
 
           </ul>
 

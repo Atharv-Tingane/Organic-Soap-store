@@ -85,6 +85,15 @@ body {
 html {
   overscroll-behavior-y: none;
 }
+.dot{
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid #114624;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  background-color:#114624;
+}
 
 body {
   margin: 0;

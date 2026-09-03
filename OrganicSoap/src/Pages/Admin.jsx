@@ -1,438 +1,58 @@
-import {
-  FiPackage,
-  FiShoppingBag,
-  FiUsers,
-  FiDollarSign,
-  FiPlus,
-  FiEdit2,
-  FiTrash2,
-} from "react-icons/fi";
-
-import Reveal from "../components/common/Reveal";
-
-function Admin() {
-  const stats = [
-    {
-      title: "Total Products",
-      value: "6",
-      icon: FiPackage,
-    },
-    {
-      title: "Total Orders",
-      value: "0",
-      icon: FiShoppingBag,
-    },
-    {
-      title: "Customers",
-      value: "0",
-      icon: FiUsers,
-    },
-    {
-      title: "Revenue",
-      value: "₹0",
-      icon: FiDollarSign,
-    },
-  ];
-
-  const products = [
-    {
-      id: 1,
-      name: "Turmeric Soap",
-      category: "Organic Soap",
-      price: 249,
-      stock: 25,
-    },
-    {
-      id: 2,
-      name: "Aloe Vera Soap",
-      category: "Organic Soap",
-      price: 299,
-      stock: 18,
-    },
-    {
-      id: 3,
-      name: "Coffee Soap",
-      category: "Organic Soap",
-      price: 279,
-      stock: 30,
-    },
-    {
-      id: 4,
-      name: "Rose Soap",
-      category: "Organic Soap",
-      price: 259,
-      stock: 12,
-    },
-    {
-      id: 5,
-      name: "Neem Soap",
-      category: "Organic Soap",
-      price: 229,
-      stock: 20,
-    },
-    {
-      id: 6,
-      name: "Lavender Soap",
-      category: "Organic Soap",
-      price: 319,
-      stock: 15,
-    },
-  ];
-
-  return (
-    <section className="min-h-screen bg-linear-to-b from-[#f1faf4] via-[#f8fbf8] to-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-
-      <div className="mx-auto max-w-7xl">
-
-        <Reveal>
-
-          <div className="mb-8 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
-
-            <div>
-
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-600">
-                Administration
-              </p>
-
-              <h1 className="mt-2 text-3xl font-extrabold text-[#173b2c] sm:text-5xl">
-                Admin Dashboard
-              </h1>
-
-              <p className="mt-3 max-w-xl text-sm text-gray-500 sm:text-base">
-                Manage your products, orders, customers and store activity.
-              </p>
-
-            </div>
-
-            <button
-              className="
-                flex
-                items-center
-                justify-center
-                gap-2
-                rounded-xl
-                bg-green-600
-                px-5
-                py-3
-                text-sm
-                font-semibold
-                text-white
-                shadow-lg
-                shadow-green-600/20
-                transition
-                hover:-translate-y-1
-                hover:bg-green-700
-              "
-            >
-              <FiPlus size={18} />
-              Add Product
-            </button>
-
-          </div>
-
-        </Reveal>
-
-
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-
-          {stats.map((stat, index) => {
-
-            const Icon = stat.icon;
-
-            return (
-              <Reveal
-                key={stat.title}
-                delay={index * 100}
-              >
-
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:rounded-3xl sm:p-6">
-
-                  <div className="flex items-center justify-between">
-
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-green-100 text-green-700 sm:h-12 sm:w-12">
-                      <Icon size={21} />
-                    </div>
-
-                  </div>
-
-                  <p className="mt-5 text-xs font-medium text-gray-500 sm:text-sm">
-                    {stat.title}
-                  </p>
-
-                  <p className="mt-1 text-2xl font-extrabold text-[#173b2c] sm:text-3xl">
-                    {stat.value}
-                  </p>
-
-                </div>
-
-              </Reveal>
-            );
-          })}
-
-        </div>
-
-
-        <Reveal delay={300}>
-
-          <div className="mt-8 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm sm:mt-10 sm:rounded-3xl">
-
-            <div className="flex flex-col gap-4 border-b border-gray-100 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
-
-              <div>
-
-                <p className="text-sm font-semibold uppercase tracking-widest text-green-600">
-                  Inventory
-                </p>
-
-                <h2 className="mt-1 text-2xl font-bold text-[#173b2c]">
-                  Products
-                </h2>
-
-              </div>
-
-              <button
-                className="
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-xl
-                  border
-                  border-green-600
-                  px-4
-                  py-2.5
-                  text-sm
-                  font-semibold
-                  text-green-700
-                  transition
-                  hover:bg-green-50
-                "
-              >
-                <FiPlus size={16} />
-                Add Product
-              </button>
-
-            </div>
-
-            <div className="divide-y divide-gray-100 md:hidden">
-
-              {products.map((product) => (
-
-                <div
-                  key={product.id}
-                  className="p-5"
-                >
-
-                  <div className="flex items-start justify-between gap-4">
-
-                    <div>
-
-                      <h3 className="font-bold text-gray-800">
-                        {product.name}
-                      </h3>
-
-                      <p className="mt-1 text-xs text-green-600">
-                        {product.category}
-                      </p>
-
-                    </div>
-
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                        product.stock > 10
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}
-                    >
-                      {product.stock} in stock
-                    </span>
-
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-
-                    <p className="font-bold text-green-700">
-                      ₹{product.price}
-                    </p>
-
-                    <div className="flex gap-2">
-
-                      <button
-                        className="rounded-full bg-green-50 p-2 text-green-700 transition hover:bg-green-100"
-                        aria-label={`Edit ${product.name}`}
-                      >
-                        <FiEdit2 size={16} />
-                      </button>
-
-                      <button
-                        className="rounded-full bg-red-50 p-2 text-red-500 transition hover:bg-red-100"
-                        aria-label={`Delete ${product.name}`}
-                      >
-                        <FiTrash2 size={16} />
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              ))}
-
-            </div>
-
-
-
-            <div className="hidden overflow-x-auto md:block">
-
-              <table className="w-full">
-
-                <thead className="bg-[#f5faf6]">
-
-                  <tr>
-
-                    <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                      Product
-                    </th>
-
-                    <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                      Category
-                    </th>
-
-                    <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                      Price
-                    </th>
-
-                    <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                      Stock
-                    </th>
-
-                    <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
-                      Actions
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody className="divide-y divide-gray-100">
-
-                  {products.map((product) => (
-
-                    <tr
-                      key={product.id}
-                      className="transition hover:bg-[#f8fcf9]"
-                    >
-
-                      <td className="px-6 py-5 font-semibold text-gray-800">
-                        {product.name}
-                      </td>
-
-                      <td className="px-6 py-5 text-sm text-gray-500">
-                        {product.category}
-                      </td>
-
-                      <td className="px-6 py-5 font-semibold text-green-700">
-                        ₹{product.price}
-                      </td>
-
-                      <td className="px-6 py-5">
-
-                        <span
-                          className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                            product.stock > 10
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}
-                        >
-                          {product.stock} in stock
-                        </span>
-
-                      </td>
-
-                      <td className="px-6 py-5">
-
-                        <div className="flex justify-end gap-2">
-
-                          <button
-                            className="rounded-full bg-green-50 p-2 text-green-700 transition hover:bg-green-100"
-                            aria-label={`Edit ${product.name}`}
-                          >
-                            <FiEdit2 size={16} />
-                          </button>
-
-                          <button
-                            className="rounded-full bg-red-50 p-2 text-red-500 transition hover:bg-red-100"
-                            aria-label={`Delete ${product.name}`}
-                          >
-                            <FiTrash2 size={16} />
-                          </button>
-
-                        </div>
-
-                      </td>
-
-                    </tr>
-
-                  ))}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-        </Reveal>
-
-
-
-        <Reveal delay={400}>
-
-          <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:mt-10 sm:rounded-3xl sm:p-7">
-
-            <div>
-
-              <p className="text-sm font-semibold uppercase tracking-widest text-green-600">
-                Activity
-              </p>
-
-              <h2 className="mt-1 text-2xl font-bold text-[#173b2c]">
-                Recent Orders
-              </h2>
-
-            </div>
-
-
-            <div className="mt-7 flex min-h-40 items-center justify-center rounded-2xl bg-[#f5faf6]">
-
-              <div className="text-center">
-
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-green-700">
-                  <FiShoppingBag size={24} />
-                </div>
-
-                <p className="mt-4 font-semibold text-gray-700">
-                  No orders yet
-                </p>
-
-                <p className="mt-1 text-sm text-gray-400">
-                  New customer orders will appear here.
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </Reveal>
-
-      </div>
-
-    </section>
-  );
+import { useEffect, useMemo, useState } from "react";
+import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { FiBox, FiCheck, FiEdit2, FiPackage, FiPlus, FiRefreshCw, FiShoppingBag, FiTrash2, FiUsers, FiX } from "react-icons/fi";
+import api, { getErrorMessage } from "../api/client";
+import { useAuth } from "../context/AuthContext";
+
+const blankProduct = { name: "", desc: "", category: "", weightValue: "100", weightUnit: "g", price: "", discounted_price: "", inStock: "0", image: "", isActive: true, benefits: "", ingredients: "", tags: "" };
+const money = (value) => `₹${Number(value || 0).toFixed(0)}`;
+const csv = (value) => String(value || "").split(",").map((item) => item.trim()).filter(Boolean);
+
+export default function Admin() {
+  const { user, loading: authLoading } = useAuth();
+  const [dashboard, setDashboard] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState(blankProduct);
+  const [saving, setSaving] = useState(false);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const [dash, productData, orderData, userData, categoryData] = await Promise.all([
+        api.get("/admin/dashboard"), api.get("/products/all", { params: { active: "false", limit: 100 } }), api.get("/orders", { params: { limit: 20 } }), api.get("/admin/users", { params: { limit: 20 } }), api.get("/category"),
+      ]);
+      setDashboard(dash.data); setProducts(productData.data.products || []); setOrders(orderData.data.orders || []); setUsers(userData.data.users || []); setCategories(categoryData.data || []);
+    } catch (error) { toast.error(getErrorMessage(error)); } finally { setLoading(false); }
+  };
+  useEffect(() => { if (user?.role === "admin") load(); }, [user]);
+  const stats = useMemo(() => [
+    ["Products", products.length, FiPackage], ["Orders", dashboard?.totalOrders || 0, FiShoppingBag], ["Customers", dashboard?.totalUsers || 0, FiUsers], ["Delivered revenue", money(dashboard?.deliveredRevenue), FiBox],
+  ], [dashboard, products]);
+  if (authLoading) return <main className="p-16 text-center">Loading…</main>;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role !== "admin") return <Navigate to="/" replace />;
+
+  const openCreate = () => { setForm(blankProduct); setModal("product"); };
+  const openEdit = (product) => { setForm({ id: product._id, name: product.name, desc: product.desc, category: product.category?._id || product.category || "", weightValue: product.weight?.value || "", weightUnit: product.weight?.unit || "g", price: product.price, discounted_price: product.discounted_price ?? "", inStock: product.inStock, image: product.images?.[0] || "", isActive: product.isActive, benefits: (product.benefits || []).join(", "), ingredients: (product.ingredients || []).join(", "), tags: (product.tags || []).join(", ") }); setModal("product"); };
+  const saveProduct = async (event) => { event.preventDefault(); setSaving(true); try { const payload = { name: form.name, desc: form.desc, category: form.category, weight: { value: Number(form.weightValue), unit: form.weightUnit }, price: Number(form.price), discounted_price: form.discounted_price === "" ? null : Number(form.discounted_price), inStock: Number(form.inStock), isActive: form.isActive, images: [form.image], benefits: csv(form.benefits), ingredients: csv(form.ingredients), tags: csv(form.tags) }; if (form.id) await api.put(`/products/${form.id}`, payload); else await api.post("/products/create", payload); toast.success(form.id ? "Product updated" : "Product created"); setModal(null); await load(); } catch (error) { toast.error(getErrorMessage(error)); } finally { setSaving(false); } };
+  const deleteProduct = async (product) => { if (!window.confirm(`Delete ${product.name}?`)) return; try { await api.delete(`/products/${product._id}`); toast.success("Product deleted"); await load(); } catch (error) { toast.error(getErrorMessage(error)); } };
+  const setOrderStatus = async (order, status) => { try { await api.patch(`/orders/${order._id}/status`, { status }); toast.success("Order status updated"); await load(); } catch (error) { toast.error(getErrorMessage(error)); } };
+  const toggleUser = async (account) => { try { await api.patch(`/admin/users/${account._id}/status`, { isActive: !account.isActive }); toast.success(`User ${account.isActive ? "blocked" : "unblocked"}`); await load(); } catch (error) { toast.error(getErrorMessage(error)); } };
+  const updateForm = (event) => { const { name, value, type, checked } = event.target; setForm((current) => ({ ...current, [name]: type === "checkbox" ? checked : value })); };
+
+  return <main className="min-h-screen bg-[#f5faf6] px-4 py-10 sm:px-6"><div className="mx-auto max-w-7xl"><div className="flex flex-wrap items-end justify-between gap-4"><div><p className="font-semibold uppercase tracking-[.25em] text-green-600">Administration</p><h1 className="mt-2 text-4xl font-extrabold text-[#173b2c]">OrganicSoap Admin</h1><p className="mt-2 text-gray-500">Live store operations and inventory.</p></div><div className="flex gap-3"><button onClick={load} className="rounded-xl border border-green-700 px-4 py-3 text-green-700"><FiRefreshCw /></button><button onClick={openCreate} className="flex items-center gap-2 rounded-xl bg-green-600 px-5 py-3 font-semibold text-white"><FiPlus />Add product</button></div></div>
+  {loading ? <p className="py-20 text-center text-gray-500">Loading dashboard…</p> : <><section className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">{stats.map(([label, value, Icon]) => <div key={label} className="rounded-2xl bg-white p-5 shadow-sm"><Icon className="text-green-700" size={24} /><p className="mt-5 text-sm text-gray-500">{label}</p><p className="mt-1 text-2xl font-extrabold text-[#173b2c]">{value}</p></div>)}</section>
+  <Panel title="Inventory" description={`${products.length} products`}><div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead className="border-b text-gray-500"><tr><th className="p-3">Product</th><th className="p-3">Price</th><th className="p-3">Stock</th><th className="p-3">Visibility</th><th className="p-3 text-right">Actions</th></tr></thead><tbody>{products.map((product) => <tr key={product._id} className="border-b"><td className="p-3 font-semibold">{product.name}<span className="block text-xs font-normal text-green-700">{product.category?.name || "Uncategorised"}</span></td><td className="p-3">{money(product.discounted_price ?? product.price)}</td><td className="p-3">{product.inStock}</td><td className="p-3">{product.isActive ? "Active" : "Hidden"}</td><td className="p-3"><div className="flex justify-end gap-2"><button onClick={() => openEdit(product)} className="rounded-lg bg-green-50 p-2 text-green-700"><FiEdit2 /></button><button onClick={() => deleteProduct(product)} className="rounded-lg bg-red-50 p-2 text-red-600"><FiTrash2 /></button></div></td></tr>)}</tbody></table></div></Panel>
+  <Panel title="Recent orders" description={`${dashboard?.pendingOrders || 0} open orders`}><div className="space-y-3">{orders.length ? orders.map((order) => <div key={order._id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#f5faf6] p-4"><div><p className="font-semibold">{order.orderNumber}</p><p className="text-sm text-gray-500">{order.user?.name || "Customer"} · {money(order.total)}</p></div><div className="flex items-center gap-2"><span className="rounded-full bg-white px-3 py-1 text-sm capitalize">{order.status}</span>{order.status !== "delivered" && order.status !== "cancelled" && <select value="" onChange={(event) => event.target.value && setOrderStatus(order, event.target.value)} className="rounded-lg border bg-white p-2 text-sm"><option value="">Update status</option>{({ pending: ["confirmed", "cancelled"], confirmed: ["processing", "cancelled"], processing: ["shipped", "cancelled"], shipped: ["delivered"] }[order.status] || []).map((status) => <option key={status} value={status}>{status}</option>)}</select>}</div></div>) : <p className="text-gray-500">No orders yet.</p>}</div></Panel>
+  <Panel title="Customers" description="Manage customer access"><div className="space-y-3">{users.map((account) => <div key={account._id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#f5faf6] p-4"><div><p className="font-semibold">{account.name}</p><p className="text-sm text-gray-500">{account.email} · {account.totalOrders || 0} orders</p></div><button onClick={() => toggleUser(account)} className={`rounded-xl px-4 py-2 text-sm font-semibold ${account.isActive ? "bg-red-50 text-red-700" : "bg-green-100 text-green-700"}`}>{account.isActive ? "Block" : "Unblock"}</button></div>)}</div></Panel></>}
+  {modal === "product" && <div className="fixed inset-0 z-50 overflow-y-auto bg-black/40 p-4"><form onSubmit={saveProduct} className="mx-auto my-8 max-w-2xl rounded-3xl bg-white p-6 shadow-xl"><div className="flex justify-between"><h2 className="text-2xl font-bold">{form.id ? "Edit product" : "Add product"}</h2><button type="button" onClick={() => setModal(null)}><FiX size={24} /></button></div><div className="mt-6 grid gap-4 sm:grid-cols-2"><Field label="Name" name="name" value={form.name} onChange={updateForm} required /><Field label="Category" name="category" value={form.category} onChange={updateForm} required select options={categories.map((category) => [category._id, category.name])} /><Field label="Price" name="price" value={form.price} onChange={updateForm} required type="number" /><Field label="Discount price" name="discounted_price" value={form.discounted_price} onChange={updateForm} type="number" /><Field label="Stock" name="inStock" value={form.inStock} onChange={updateForm} required type="number" /><Field label="Weight" name="weightValue" value={form.weightValue} onChange={updateForm} required type="number" /><Field label="Weight unit" name="weightUnit" value={form.weightUnit} onChange={updateForm} select options={[["g", "g"], ["ml", "ml"]]} /><Field label="Image URL" name="image" value={form.image} onChange={updateForm} required /><Field label="Benefits (comma-separated)" name="benefits" value={form.benefits} onChange={updateForm} /><Field label="Ingredients (comma-separated)" name="ingredients" value={form.ingredients} onChange={updateForm} /><Field label="Tags (comma-separated)" name="tags" value={form.tags} onChange={updateForm} /><label className="flex items-center gap-2 text-sm font-semibold"><input name="isActive" type="checkbox" checked={form.isActive} onChange={updateForm} /> Publish product</label><label className="sm:col-span-2 text-sm font-semibold">Description<textarea required name="desc" value={form.desc} onChange={updateForm} className="mt-2 min-h-28 w-full rounded-xl border p-3" /></label></div><button disabled={saving} className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 py-3 font-semibold text-white disabled:bg-gray-300"><FiCheck />{saving ? "Saving…" : "Save product"}</button></form></div>}</div></main>;
 }
 
-export default Admin;
+function Panel({ title, description, children }) { return <section className="mt-8 rounded-2xl bg-white p-5 shadow-sm sm:p-7"><p className="font-semibold uppercase tracking-[.18em] text-green-600">{description}</p><h2 className="mt-1 text-2xl font-bold text-[#173b2c]">{title}</h2><div className="mt-6">{children}</div></section>; }
+function Field({ label, name, value, onChange, type = "text", required, select, options = [] }) { return <label className="text-sm font-semibold">{label}{select ? <select name={name} value={value} onChange={onChange} required={required} className="mt-2 w-full rounded-xl border bg-white p-3"><option value="">Choose…</option>{options.map(([id, text]) => <option key={id} value={id}>{text}</option>)}</select> : <input name={name} value={value} onChange={onChange} type={type} required={required} min={type === "number" ? "0" : undefined} className="mt-2 w-full rounded-xl border p-3" />}</label>; }

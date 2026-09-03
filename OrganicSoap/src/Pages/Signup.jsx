@@ -3,9 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import { getErrorMessage } from "../api/client";
+import "./Auth.css";
 
 export default function Signup() {
-  const { signup } = useAuth(); const navigate = useNavigate(); const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" }); const [submitting, setSubmitting] = useState(false);
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
+  const [submitting, setSubmitting] = useState(false);
   const submit = async (event) => { event.preventDefault(); setSubmitting(true); try { await signup(form); toast.success("Account created successfully"); navigate("/"); } catch (error) { toast.error(getErrorMessage(error)); } finally { setSubmitting(false); } };
-  return <main className="min-h-[70vh] bg-[#f8fbf8] px-4 py-16"><form onSubmit={submit} className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-sm"><p className="font-semibold uppercase tracking-[.25em] text-green-600">Join OrganicSoap</p><h1 className="mt-2 text-3xl font-bold text-[#173b2c]">Create account</h1>{[["name", "Full name", "text"], ["email", "Email", "email"], ["phone", "Phone", "tel"], ["password", "Password", "password"]].map(([key, label, type]) => <label key={key} className="mt-4 block text-sm font-semibold">{label}<input required minLength={key === "password" ? 8 : undefined} type={type} value={form[key]} onChange={(e) => setForm({ ...form, [key]: e.target.value })} className="mt-2 w-full rounded-xl border p-3" /></label>)}<button disabled={submitting} className="mt-7 w-full rounded-xl bg-green-600 py-3 font-semibold text-white disabled:bg-gray-300">{submitting ? "Creating account…" : "Create account"}</button><p className="mt-5 text-center text-sm text-gray-500">Already have an account? <Link to="/login" className="font-semibold text-green-700">Log in</Link></p></form></main>;
+  const fields = [["name", "Full name", "text", "Your name"], ["email", "Email address", "email", "you@example.com"], ["phone", "Phone number", "tel", "Your phone number"], ["password", "Password", "password", "At least 8 characters"]];
+  return <main className="auth-page"><section className="auth-container"><div className="auth-art" aria-hidden="true" /><div className="auth-form-panel"><h1>Create account</h1><p className="auth-subtitle">Join OrganicSoap for a gentler daily ritual.</p><form onSubmit={submit}>{fields.map(([key, label, type, placeholder]) => <div className="auth-input" key={key}><label htmlFor={`signup-${key}`}>{label}</label><input id={`signup-${key}`} required minLength={key === "password" ? 8 : undefined} type={type} autoComplete={key === "password" ? "new-password" : key} placeholder={placeholder} value={form[key]} onChange={(event) => setForm({ ...form, [key]: event.target.value })} /></div>)}<button className="auth-submit" disabled={submitting}>{submitting ? "Creating account…" : "Create account"}</button></form><p className="auth-switch">Already have an account? <Link to="/login">Log in</Link></p></div></section></main>;
 }
