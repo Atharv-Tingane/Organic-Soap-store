@@ -1,60 +1,82 @@
 const express = require('express');
 const { z } = require('zod');
 const validate = require('../middleware/validate');
+const parseProductForm = require("../middleware/parseProductForm");
 const { protect, authorize } = require('../middleware/Auth');
 const { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getAllCategory, getAllTag } = require('../controllers/productC');
 const router = express.Router();
+const upload = require("../middleware/upload");
 const productFields = {
+  name: z.string().trim().min(2).max(160),
 
-    name: z.string().trim().min(2).max(160),
+  desc: z.string().trim().min(2).max(5000),
 
-    slug: z.string().trim().min(2).max(160),
+  category: z.string().trim().min(1).max(80),
 
-    desc: z.string().trim().min(2).max(5000),
+  weight: z.object({
+    value: z.coerce.number().positive(),
+    unit: z.enum(['g', 'ml'])
+  }),
 
-    category: z.string().trim().min(1).max(80),
+  benefits: z.array(
+    z.string().trim().min(1).max(300)
+  ).max(30).default([]),
 
-    weight: z.object({
-        value: z.coerce.number().positive(),
-        unit: z.enum(['g', 'ml'])
-    }),
+  ingredients: z.array(
+    z.string().trim().min(1).max(300)
+  ).max(50).default([]),
 
-    benefits: z.array(
-        z.string().trim().min(1).max(300)
-    ).max(30).default([]),
+  tags: z.array(
+    z.string().trim().min(1).max(50)
+      .transform((tag) => tag.toLowerCase())
+  ).max(20).default([]),
 
-    ingredients: z.array(
-        z.string().trim().min(1).max(300)
-    ).max(50).default([]),
+  isActive: z.boolean().default(false),
 
-    tags: z.array(
-        z.string().trim().min(1).max(50)
-            .transform((tag) => tag.toLowerCase())
-    ).max(20).default([]),
+  inStock: z.coerce.number().int().min(0).default(0),
 
-    isActive: z.boolean().default(false),
+  price: z.coerce.number().nonnegative(),
 
-    inStock: z.coerce.number().int().min(0).default(0),
-
-    price: z.coerce.number().nonnegative(),
-
-    discounted_price: z.coerce.number()
-        .nonnegative()
-        .nullable()
-        .optional(),
-
-    images: z.array(
-        z.string().url().max(2048)
-    ).min(1).max(10),
+  discounted_price: z.coerce.number()
+    .nonnegative()
+    .nullable()
+    .optional(),
 };
-const productInput = z.object(productFields).strict().refine((data) => data.discounted_price == null || data.discounted_price < data.price, { message: 'Discount price must be less than original price', path: ['discounted_price'] });
+const productInput = z.object(productFields)
+  .strict()
+  .refine(
+    (data) =>
+      data.discounted_price == null ||
+      data.discounted_price < data.price,
+    {
+      message: 'Discount price must be less than original price',
+      path: ['discounted_price']
+    }
+  );
+
 const productUpdateInput = z.object(productFields).partial().strict();
 
 router.get('/all', getAllProducts);
 router.get('/category/:cat', getAllCategory);
 router.get('/tag/:tag', getAllTag);
 router.get('/:id', getProductById);
-router.post('/create', protect, authorize('admin'), validate(productInput), createProduct);
-router.put('/:id', protect, authorize('admin'), validate(productUpdateInput), updateProduct);
+router.post(
+  "/create",
+  protect,
+  authorize("admin"),
+  upload.single("image"),
+  parseProductForm,
+  validate(productInput),
+  createProduct
+);
+router.put(
+  "/:id",
+  protect,
+  authorize("admin"),
+  upload.single("image"),
+  parseProductForm,
+  validate(productUpdateInput),
+  updateProduct
+);
 router.delete('/:id', protect, authorize('admin'), deleteProduct);
 module.exports = router;
